@@ -1,5 +1,10 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div class="about" @click="mainStore.increment">{{ mainStore.count }}</div>
 </template>
+
+<script setup>
+import useMainStore from "../store/main.pinia.js";
+const mainStore = useMainStore();
+</script>
+
+<style scoped lang="scss"></style>

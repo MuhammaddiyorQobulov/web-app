@@ -1,6 +1,9 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
+import ModalComponent from "@/components/ModalComponent.vue";
 
+const visible = ref(false);
+const count = ref(1);
 const props = defineProps({
   product: {
     imgUrl: {
@@ -13,18 +16,48 @@ const props = defineProps({
     cost: { type: Number, default: 0 },
   },
 });
+const closeModal = () => {
+  visible.value = false;
+};
 </script>
 <template>
   <div class="product">
     <div class="image">
       <img :src="props.product.imgUrl" alt="Image" />
       <div class="overlay">
-        <button class="btn">Add to cart</button>
+        <button @click="visible = true" class="btn">Add to cart</button>
       </div>
     </div>
     <h2 class="title bold-4">{{ props.product.title }}</h2>
     <p class="cost">{{ props.product.cost }} so'm</p>
   </div>
+
+  <modal-component v-if="visible" @closeModal="closeModal">
+    <div class="modal">
+      <div class="modal-image">
+        <img :src="props.product.imgUrl" alt="Image" />
+      </div>
+
+      <div class="modal-content">
+        <h2 class="title bold-4">{{ props.product.title }}</h2>
+        <p>{{ props.product.cost }} so'm</p>
+        <p class="text-mute">
+          Mahsulot narxiga birmarttalik idish narxi qo'shiladi! (1500)
+        </p>
+        <div class="count">
+          <div class="amount flex">
+            <p class="bold-4">{{ count }}tasi</p>
+            <p>{{ props.product.cost * count }} so'm</p>
+          </div>
+          <div class="flex">
+            <button @click="count--" class="btn btn-primary">-</button>
+            <button @click="count++" class="btn btn-primary">+</button>
+          </div>
+        </div>
+        <button class="btn btn-primary">Add to cart</button>
+      </div>
+    </div>
+  </modal-component>
 </template>
 
 <style scoped lang="scss">
@@ -84,6 +117,39 @@ const props = defineProps({
     -ms-transform: translate(-50%, -50%);
     &:active {
       background: $btn-info;
+    }
+  }
+}
+
+.modal {
+  &-image {
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100%;
+    }
+  }
+  &-content {
+    padding: 1rem;
+    .text-mute {
+      font-size: 12px;
+    }
+    .count {
+      display: flex;
+      justify-content: space-between;
+      .amount{
+        gap: 1rem;
+      }
+      button {
+        padding: 0.4rem 0.8rem;
+        background: transparent;
+        border: 1px solid #000;
+        border-radius: 4px;
+      }
     }
   }
 }

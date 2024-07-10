@@ -11,12 +11,25 @@ import MainSearch from "../components/MainSearch.vue";
     <div class="search-bar">
       <main-search />
     </div>
-    <div class="user">
-      <div class="avatar">
-        <user-icon />
-      </div>
-      <div class="user-name">User Name</div>
-    </div>
+
+    <a-dropdown v-model:visible="visible">
+      <a class="ant-dropdown-link user" @click.prevent>
+        <div class="avatar">
+          <user-icon />
+        </div>
+        <p>User Name</p>
+        <DownOutlined />
+      </a>
+      <template #overlay>
+        <a-menu @click="handleMenuClick">
+          <a-menu-item key="1">Profile</a-menu-item>
+          <a-menu-item key="2">Buyurtmalar</a-menu-item>
+          <a-menu-item key="3">Korzinka</a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="4">Chiqish</a-menu-item>
+        </a-menu>
+      </template>
+    </a-dropdown>
   </div>
 </template>
 
@@ -36,10 +49,11 @@ import MainSearch from "../components/MainSearch.vue";
   .user {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    cursor: pointer;
     .avatar {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border: 1px solid black;
       border-radius: 100%;
       display: flex;

@@ -25,7 +25,7 @@ const useCartsStore = defineStore("carts", {
     totalCost() {
       let cost = 0;
       this.carts.forEach((i) => {
-        cost += i.cost * i.count;
+        cost += i.price * i.count;
       });
       return cost;
     },

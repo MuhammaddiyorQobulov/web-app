@@ -48,7 +48,7 @@ const datas = [
 @import "@/styles/variables.scss";
 .footer {
   background: $footer-bg;
-  height: 300px;
+  height: 200px;
   padding: 4rem 0;
   display: flex;
   flex-wrap: wrap;

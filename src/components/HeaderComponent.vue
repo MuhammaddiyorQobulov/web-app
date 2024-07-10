@@ -2,6 +2,7 @@
 import { LogoIcon } from "@/assets/icons/logo";
 import { UserIcon } from "@/assets/icons/user";
 import MainSearch from "../components/MainSearch.vue";
+import { DownOutlined } from "@ant-design/icons-vue";
 </script>
 <template>
   <div class="header">
@@ -12,7 +13,7 @@ import MainSearch from "../components/MainSearch.vue";
       <main-search />
     </div>
 
-    <a-dropdown v-model:visible="visible">
+    <a-dropdown>
       <a class="ant-dropdown-link user" @click.prevent>
         <div class="avatar">
           <user-icon />
@@ -21,10 +22,19 @@ import MainSearch from "../components/MainSearch.vue";
         <DownOutlined />
       </a>
       <template #overlay>
-        <a-menu @click="handleMenuClick">
-          <a-menu-item key="1">Profile</a-menu-item>
-          <a-menu-item key="2">Buyurtmalar</a-menu-item>
-          <a-menu-item key="3">Korzinka</a-menu-item>
+        <a-menu>
+          <router-link to="/#">
+            <a-menu-item key="1">Profile</a-menu-item>
+          </router-link>
+
+          <router-link to="/#">
+            <a-menu-item key="2">Buyurtmalar</a-menu-item>
+          </router-link>
+
+          <router-link to="/carts">
+            <a-menu-item key="3">Korzinka</a-menu-item>
+          </router-link>
+
           <a-menu-divider />
           <a-menu-item key="4">Chiqish</a-menu-item>
         </a-menu>
@@ -40,9 +50,9 @@ import MainSearch from "../components/MainSearch.vue";
   align-items: center;
   justify-content: space-between;
   height: 50px;
+  border-bottom: 1px solid $shadow-light;
   padding: 16px 24px;
-  .logo {
-  }
+
   .search-bar {
     width: 500px;
   }

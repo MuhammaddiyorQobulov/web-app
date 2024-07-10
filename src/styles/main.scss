@@ -10,8 +10,8 @@
 }
 
 .container {
-  padding-left: 5% !important;
-  padding-right: 5% !important;
+  padding-left: 5vw !important;
+  padding-right: 5vw !important;
 }
 .flex {
   display: flex;
@@ -24,4 +24,19 @@
 
 .bold-4 {
   font-weight: 400;
+}
+
+.success{
+  background: $btn-success !important;
+  color: $white !important;
+}
+
+.danger{
+  background: $btn-danger !important;
+  color: $white !important;
+}
+
+.warning{
+  background: $btn-warning !important;
+  color: $white !important;
 }

@@ -1,12 +1,16 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
-const emits = defineEmits(["addToCart"]);
+import { defineEmits, defineProps, ref } from "vue";
+import { CloseIcon } from "@/assets/icons/close";
+import { storeToRefs } from "pinia";
+import { PlusIcon } from "@/assets/icons/plus";
+import { MinusIcon } from "@/assets/icons/minus";
+import useCartsStore from "@/store/carts";
+
+const cartsStore = useCartsStore();
+const emits = defineEmits(["deleteItem"]);
 const props = defineProps({
-  product: {
-    id: {
-      type: String,
-      required: true,
-    },
+  item: {
+    id: { type: String, required: true },
     imgUrl: {
       type: String,
       default:
@@ -17,138 +21,122 @@ const props = defineProps({
     cost: { type: Number, default: 0 },
   },
 });
+const { item } = storeToRefs(props);
+const deleteItem = () => {
+  emits("deleteItem", item.id);
+};
 </script>
 <template>
-  <div class="product">
+  <a-row :gutter="[16, 16]" class="item">
+    <div class="close-icon" @click="cartsStore.removeCart(item.id)">
+      <close-icon @click="deleteItem" />
+    </div>
     <div class="image">
-      <img :src="props.product.imgUrl" alt="Image" />
-      <div class="overlay">
-        <button @click="emits('addToCart')" class="btn">Add to cart</button>
-      </div>
+      <img :src="item.imgUrl" alt="image" />
     </div>
-    <h2 class="title bold-4">{{ props.product.title }}</h2>
-    <p class="cost">{{ props.product.cost }} so'm</p>
-  </div>
+    <a-col
+      :xs="6"
+      :sm="6"
+      :md="6"
+      :lg="8"
+      :xl="10"
+      :xxl="6"
+      class="content flex"
+    >
+      <h2 class="title bold-4">{{ item.title }}</h2>
 
-  <!-- <modal-component v-if="visible" @closeModal="closeModal">
-    <div class="modal">
-      <div class="modal-image">
-        <img :src="props.product.imgUrl" alt="Image" />
+      <div class="flex">
+        <div class="amount">{{ item.count }}</div>
+        <pre> x </pre>
+        <p>{{ item.cost }}</p>
+        <pre> = </pre>
+        <p class="bold-4">{{ item.cost * item.count }} so'm</p>
       </div>
-
-      <div class="modal-content">
-        <h2 class="title bold-4">{{ props.product.title }}</h2>
-        <p>{{ props.product.cost }} so'm</p>
-        <p class="text-mute">
-          Mahsulot narxiga birmarttalik idish narxi qo'shiladi! (1500)
-        </p>
-        <div class="count">
-          <div class="amount flex">
-            <p class="bold-4">{{ count }}tasi</p>
-            <p>{{ props.product.cost * count }} so'm</p>
-          </div>
-          <div class="flex">
-            <button @click="count--" class="btn btn-primary">-</button>
-            <button @click="count++" class="btn btn-primary">+</button>
-          </div>
-        </div>
-        <button class="btn btn-primary">Add to cart</button>
-      </div>
-    </div>
-  </modal-component> -->
+    </a-col>
+    <a-col class="count flex">
+      <button
+        @click="cartsStore.handleCount(item.id, item.count - 1)"
+        :disabled="item.count <= 1"
+        class="danger"
+      >
+        <minus-icon />
+      </button>
+      <button
+        @click="cartsStore.handleCount(item.id, item.count + 1)"
+        class="success"
+      >
+        <plus-icon />
+      </button>
+    </a-col>
+  </a-row>
 </template>
 
 <style scoped lang="scss">
-@import "@/styles/variables.scss";
-
-.product {
-  text-align: center;
-  padding-bottom: 3rem;
-  border-radius: 8px;
-  box-shadow: $shadow-light 0px 0px 8px 0px;
+@import "@/styles/variables";
+.item {
+  width: 100%;
+  align-items: center;
+  margin: 0 !important;
+  border-bottom: 1px solid $shadow-light;
+  padding: 2rem 0;
+  .close-icon {
+    background: $shadow-light;
+    width: 15px;
+    height: 15px;
+    color: $white;
+    padding: 0.5rem;
+    border-radius: 100%;
+    margin-right: 1rem;
+    cursor: pointer;
+    &:active {
+      transform: scale(0.9);
+    }
+  }
   .image {
     position: relative;
-    width: 320px;
-    height: 200px;
-    overflow: hidden;
+    width: 200px;
+    height: 120px;
     padding: 0 !important;
-    border-radius: 8px 8px 0 0;
-  }
-
-  img {
-    position: absolute;
-    display: block;
-    width: 100%;
-    top: -25%;
-  }
-
-  .overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
     overflow: hidden;
-    width: 100%;
-    height: 0;
-    transition: 0.5s ease;
+    img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      top: -80%;
+    }
+  }
+  .content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: start;
+    .amount {
+      background: $btn-danger;
+      color: $white;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+    }
   }
 
-  .image:hover .overlay {
-    height: 30%;
-  }
-  .title {
-    padding: 1rem 0;
-  }
-  .btn {
-    white-space: nowrap;
-    background: $btn-warning;
-    font-size: 14px;
-    cursor: pointer;
-    position: absolute;
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    overflow: hidden;
-    top: 50%;
-    left: 80%;
-    transform: translate(-50%, -50%);
-    &:active {
-      background: $btn-info;
+  .count {
+    gap: 0.5rem;
+    button {
+      padding: 0.4rem 0.8rem;
+      background: transparent;
+      border-radius: 4px;
+      border: none;
+      &:active {
+        transform: scale(0.9);
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
 }
-
-// .modal {
-//   &-image {
-//     width: 400px;
-//     height: 200px;
-//     overflow: hidden;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     img {
-//       width: 100%;
-//     }
-//   }
-//   &-content {
-//     padding: 1rem;
-//     .text-mute {
-//       font-size: 12px;
-//     }
-//     .count {
-//       display: flex;
-//       justify-content: space-between;
-//       .amount {
-//         gap: 1rem;
-//       }
-//       button {
-//         padding: 0.4rem 0.8rem;
-//         background: transparent;
-//         border: 1px solid #000;
-//         border-radius: 4px;
-//       }
-//     }
-//   }
-// }
 </style>

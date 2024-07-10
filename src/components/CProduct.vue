@@ -31,14 +31,17 @@ const props = defineProps({
 @import "@/styles/variables.scss";
 
 .product {
-    padding-bottom: 3rem;
+  text-align: center;
+  padding-bottom: 3rem;
+  border-radius: 8px;
+  box-shadow: $shadow-light 0px 0px 8px 0px;
   .image {
     position: relative;
     width: 320px;
     height: 200px;
     overflow: hidden;
     padding: 0 !important;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
   }
 
   img {

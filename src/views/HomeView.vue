@@ -1,5 +1,5 @@
 <script setup>
-import ProductBox from "@/components/ProductBox.vue";
+import ProductBox from "@/components/CProduct.vue";
 
 const products = [
   {
@@ -64,6 +64,7 @@ const products = [
         <product-box v-for="i in products" :key="i" :product="i" />
       </div>
     </div>
+
   </div>
 </template>
 <style scoped lang="scss">
@@ -75,8 +76,8 @@ const products = [
       height: max-content;
     }
   }
-  .wrapper {
-    margin-top: 2rem;
+  .wrapper {        
+    padding: 4rem 0;
     .type-title {
       margin: 2rem 0;
     }

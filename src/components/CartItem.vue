@@ -1,5 +1,5 @@
 <script setup>
-import { defineEmits, defineProps, ref } from "vue";
+import { defineEmits, defineProps } from "vue";
 import { CloseIcon } from "@/assets/icons/close";
 import { storeToRefs } from "pinia";
 import { PlusIcon } from "@/assets/icons/plus";

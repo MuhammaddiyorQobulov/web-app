@@ -1,6 +1,6 @@
 <script setup>
-import HeaderComponent from "@/components/HeaderComponent.vue";
-import CFooter from "@/components/CFooter.vue";
+import HeaderComponent from "@/layouts/HeaderComponent.vue";
+import CFooter from "@/layouts/CFooter.vue";
 </script>
 <template>
   <header-component class="container" />

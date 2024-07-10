@@ -6,9 +6,9 @@ import { DownOutlined } from "@ant-design/icons-vue";
 </script>
 <template>
   <div class="header">
-    <div class="logo">
+    <router-link to="/">
       <LogoIcon />
-    </div>
+    </router-link>
     <div class="search-bar">
       <main-search />
     </div>

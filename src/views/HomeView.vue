@@ -1,6 +1,7 @@
 <script setup>
 import ProductBox from "@/components/CProduct.vue";
 import useCartsStore from "@/store/carts";
+import CartsModal from "@/layouts/CartsModal.vue";
 import useProductsData from "@/store/products";
 const productStore = useProductsData();
 const cartsStore = useCartsStore();
@@ -18,10 +19,16 @@ const addToCart = (cart) => {
     <div class="wrapper container">
       <h1 class="type-title bold-4">Products</h1>
       <div class="products">
-        <product-box v-for="p in products" @addToCart="addToCart(p)" :key="p.id" :product="p" />
+        <product-box
+          v-for="p in products"
+          @addToCart="addToCart(p)"
+          :key="p.id"
+          :product="p"
+        />
       </div>
     </div>
   </div>
+  <carts-modal v-if="cartsStore.carts.length"/>
 </template>
 <style scoped lang="scss">
 .home {

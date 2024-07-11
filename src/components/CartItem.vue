@@ -1,5 +1,5 @@
 <script setup>
-import { defineEmits, defineProps } from "vue";
+import { defineProps } from "vue";
 import { CloseIcon } from "@/assets/icons/close";
 import { storeToRefs } from "pinia";
 import { PlusIcon } from "@/assets/icons/plus";
@@ -7,10 +7,9 @@ import { MinusIcon } from "@/assets/icons/minus";
 import useCartsStore from "@/store/carts";
 
 const cartsStore = useCartsStore();
-const emits = defineEmits(["deleteItem"]);
 const props = defineProps({
   item: {
-    id: { type: String, required: true },
+    _id: { type: String, required: true },
     imgUrl: {
       type: String,
       default:
@@ -19,11 +18,15 @@ const props = defineProps({
     },
     name: { type: String, default: "-" },
     price: { type: Number, default: 0 },
+    description: {
+      type: String,
+      default: "-",
+    },
   },
 });
 const { item } = storeToRefs(props);
 const deleteItem = () => {
-  emits("deleteItem", item.id);
+  cartsStore.removeCart(item._id);
 };
 </script>
 <template>
@@ -32,7 +35,7 @@ const deleteItem = () => {
       <close-icon @click="deleteItem" />
     </div>
     <div class="image">
-      <img :src="item.imgUrl" alt="image" />
+      <img :src="'http://localhost:5003/' + item.imgUrl" alt="image" />
     </div>
     <a-col
       :xs="6"
@@ -55,18 +58,21 @@ const deleteItem = () => {
     </a-col>
     <a-col class="count flex">
       <button
-        @click="cartsStore.handleCount(item.id, item.count - 1)"
+        @click="cartsStore.handleCount(item._id, item.count - 1)"
         :disabled="item.count <= 1"
         class="danger"
       >
         <minus-icon />
       </button>
       <button
-        @click="cartsStore.handleCount(item.id, item.count + 1)"
+        @click="cartsStore.handleCount(item._id, item.count + 1)"
         class="success"
       >
         <plus-icon />
       </button>
+    </a-col>
+    <a-col span="24">
+      {{ item.description }}
     </a-col>
   </a-row>
 </template>
@@ -103,7 +109,6 @@ const deleteItem = () => {
       position: absolute;
       display: block;
       width: 100%;
-      top: -80%;
     }
   }
   .content {

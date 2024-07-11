@@ -11,7 +11,7 @@ const cartsStore = useCartsStore();
         <div v-for="i in cartsStore.carts" :key="i.id">
           <cart-item :item="i" />
         </div>
-      </div>
+      </div>  
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
       <div class="comments flex">
         <label for="input" class="bold-4"
@@ -24,8 +24,9 @@ const cartsStore = useCartsStore();
           v-model="cartsStore.comment"
         />
       </div>
+      
       <div class="total flex">
-        <p class="bold-4 total-cost">Umumiy summa:</p>
+        <p class="bold-4 total-title">Umumiy summa:</p>
         <h2 class="bold-4 total-cost">{{ cartsStore.totalCost() }} so'm</h2>
         <button class="btn warning">Buyurtma berish</button>
       </div>
@@ -74,6 +75,9 @@ const cartsStore = useCartsStore();
       margin-top: 2rem;
       &-cost {
         font-size: 40px;
+      }
+      &-title {
+        font-size: 25px;
       }
     }
     .btn {

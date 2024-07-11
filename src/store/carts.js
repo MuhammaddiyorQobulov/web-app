@@ -1,22 +1,21 @@
 import { defineStore } from "pinia";
 
-const useCartsStore = defineStore("carts", {
+const useCartsStore = defineStore("CartsStore", {
   state: () => ({
     carts: [],
     comment: "",
   }),
   actions: {
     addCart(cart) {
-      if (this.carts.find((i) => i.id === cart.id)) return;
+      if (this.carts.find((i) => i._id === cart._id)) return;
       this.carts = [...this.carts, { ...cart, count: 1 }];
     },
     removeCart(id) {
-      console.log(this.carts.filter((i) => i.id !== id));
-      this.carts = this.carts.filter((i) => i.id !== id);
+      this.carts = this.carts.filter((i) => i._id == id);
     },
     handleCount(id, count) {
       this.carts = this.carts.map((i) => {
-        if (i.id === id) {
+        if (i._id === id) {
           i.count = count;
         }
         return i;
@@ -31,4 +30,5 @@ const useCartsStore = defineStore("carts", {
     },
   },
 });
+
 export default useCartsStore;

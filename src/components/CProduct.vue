@@ -15,22 +15,25 @@ const props = defineProps({
     },
     title: { type: String, default: "-" },
     price: { type: Number, default: 0 },
+    description: {
+      type: String,
+      default: "-",
+    },
   },
 });
+console.log(props.product);
 </script>
 <template>
   <div class="product">
     <div class="image">
-      <img
-        :src="'http://localhost:5003/' + props.product.imgUrl"
-        alt="Image"
-      />
+      <img :src="'http://localhost:5003/' + props.product.imgUrl" alt="Image" />
       <div class="overlay">
         <button @click="emits('addToCart')" class="btn">Add to cart</button>
       </div>
     </div>
     <h2 class="title bold-4">{{ props.product.title }}</h2>
     <p class="price">{{ props.product.price }} so'm</p>
+    <p class="description muted">{{ props.product.description }}</p>
   </div>
 
   <!-- <modal-component v-if="visible" @closeModal="closeModal">
@@ -66,9 +69,11 @@ const props = defineProps({
 
 .product {
   text-align: center;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   border-radius: 8px;
   box-shadow: $shadow-light 0px 0px 8px 0px;
+  width: 320px;
+  text-align: center;
   .image {
     position: relative;
     width: 320px;
@@ -76,12 +81,11 @@ const props = defineProps({
     overflow: hidden;
     padding: 0 !important;
     border-radius: 8px 8px 0 0;
-  }
-
-  img {
-    position: absolute;
-    display: block;
-    width: 100%;
+    img {
+      position: absolute;
+      display: block;
+      width: 100%;
+    }
   }
 
   .overlay {
@@ -118,6 +122,12 @@ const props = defineProps({
     &:active {
       background: $btn-info;
     }
+  }
+  .description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 1rem 2rem;
   }
 }
 

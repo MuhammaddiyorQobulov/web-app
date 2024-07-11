@@ -27,17 +27,20 @@
   font-weight: 400;
 }
 
-.success{
+.success {
   background: $btn-success !important;
   color: $white !important;
 }
 
-.danger{
+.danger {
   background: $btn-danger !important;
   color: $white !important;
 }
 
-.warning{
+.warning {
   background: $btn-warning !important;
   color: $white !important;
+}
+.muted {
+  color: $grey;
 }

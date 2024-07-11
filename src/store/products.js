@@ -5,7 +5,6 @@ const useProductsData = defineStore("ProductsStore", {
     products: [],
     error: null,
   }),
-
   actions: {
     async getProducts() {
       try {
@@ -16,6 +15,10 @@ const useProductsData = defineStore("ProductsStore", {
         console.log(err.message);
         this.error = err.message;
       }
+    },
+    filterByType(type) {
+      console.log(this.products.filter((p) => p.type == type));
+      return this.products.filter((p) => p.type == type);
     },
   },
 });

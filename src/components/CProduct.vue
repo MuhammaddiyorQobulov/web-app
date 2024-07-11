@@ -1,6 +1,7 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
-const emits = defineEmits(["addToCart"]);
+import useCartsStore from "@/store/carts";
+import { defineProps } from "vue";
+const cartsStore = useCartsStore();
 const props = defineProps({
   product: {
     _id: {
@@ -21,14 +22,20 @@ const props = defineProps({
     },
   },
 });
-console.log(props.product);
 </script>
 <template>
   <div class="product">
     <div class="image">
       <img :src="'http://localhost:5003/' + props.product.imgUrl" alt="Image" />
       <div class="overlay">
-        <button @click="emits('addToCart')" class="btn">Add to cart</button>
+        <button
+          @click="
+            cartsStore.addCart('668e8fd60d8d2ae42463aea3', props.product._id, 1)
+          "
+          class="btn"
+        >
+          Add to cart
+        </button>
       </div>
     </div>
     <h2 class="title bold-4">{{ props.product.title }}</h2>
@@ -48,14 +55,14 @@ console.log(props.product);
         <p class="text-mute">
           Mahsulot narxiga birmarttalik idish narxi qo'shiladi! (1500)
         </p>
-        <div class="count">
+        <div class="quantity">
           <div class="amount flex">
-            <p class="bold-4">{{ count }}tasi</p>
-            <p>{{ props.product.price * count }} so'm</p>
+            <p class="bold-4">{{ quantity }}tasi</p>
+            <p>{{ props.product.price * quantity }} so'm</p>
           </div>
           <div class="flex">
-            <button @click="count--" class="btn btn-primary">-</button>
-            <button @click="count++" class="btn btn-primary">+</button>
+            <button @click="quantity--" class="btn btn-primary">-</button>
+            <button @click="quantity++" class="btn btn-primary">+</button>
           </div>
         </div>
         <button class="btn btn-primary">Add to cart</button>
@@ -148,7 +155,7 @@ console.log(props.product);
 //     .text-mute {
 //       font-size: 12px;
 //     }
-//     .count {
+//     .quantity {
 //       display: flex;
 //       justify-content: space-between;
 //       .amount {

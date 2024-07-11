@@ -49,23 +49,35 @@ const deleteItem = () => {
       <h2 class="title bold-4">{{ item.name }}</h2>
 
       <div class="flex">
-        <div class="amount">{{ item.count }}</div>
+        <div class="amount">{{ item.quantity }}</div>
         <pre> x </pre>
         <p>{{ item.price }}</p>
         <pre> = </pre>
-        <p class="bold-4">{{ item.price * item.count }} so'm</p>
+        <p class="bold-4">{{ item.price * item.quantity }} so'm</p>
       </div>
     </a-col>
-    <a-col class="count flex">
+    <a-col class="quantity flex">
       <button
-        @click="cartsStore.handleCount(item._id, item.count - 1)"
-        :disabled="item.count <= 1"
+        @click="
+          cartsStore.addCart(
+            '668e8fd60d8d2ae42463aea3',
+            item._id,
+            item.quantity - 1
+          )
+        "
+        :disabled="item.quantity <= 1"
         class="danger"
       >
         <minus-icon />
       </button>
       <button
-        @click="cartsStore.handleCount(item._id, item.count + 1)"
+        @click="
+          cartsStore.addCart(
+            '668e8fd60d8d2ae42463aea3',
+            item._id,
+            item.quantity + 1
+          )
+        "
         class="success"
       >
         <plus-icon />
@@ -127,7 +139,7 @@ const deleteItem = () => {
     }
   }
 
-  .count {
+  .quantity {
     gap: 0.5rem;
     button {
       padding: 0.4rem 0.8rem;

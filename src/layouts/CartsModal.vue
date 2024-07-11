@@ -9,7 +9,7 @@ const cartsStore = useCartsStore();
       <p>Tanlangan:</p>
       <p class="bold-4">{{ cartsStore.carts.length }}ta</p>
       <p>Jami narx:</p>
-      <p class="bold-4">{{ cartsStore.totalCost() }}</p>
+      <p class="bold-4">{{ cartsStore.total }}</p>
     </div>
     <router-link to="/carts">
       <div class="cart">

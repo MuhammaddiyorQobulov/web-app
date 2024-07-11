@@ -10,14 +10,10 @@ const productsStore = useProductsData();
 const cartsStore = useCartsStore();
 const typeStore = useTypeStore();
 
-const addToCart = (cart) => {
-  cartsStore.addCart(cart);
-};
-
 onMounted(() => {
   productsStore.getProducts();
   typeStore.getTypes();
-  console.log(typeStore.types);
+  cartsStore.getUserCarts("668e8fd60d8d2ae42463aea3");
 });
 </script>
 <template>
@@ -35,7 +31,6 @@ onMounted(() => {
           <div class="products">
             <product-box
               v-for="p in productsStore.filterByType(t.type)"
-              @addToCart="addToCart(p)"
               :key="p._id"
               :product="p"
             />

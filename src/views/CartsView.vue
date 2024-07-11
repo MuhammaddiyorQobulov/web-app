@@ -1,17 +1,23 @@
 <script setup>
 import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
+import { onMounted } from "vue";
 const cartsStore = useCartsStore();
+
+onMounted(() => {
+  cartsStore.getUserCarts("668e8fd60d8d2ae42463aea3");
+});
+
 </script>
 <template>
   <div class="carts container">
     <div class="wrapper">
       <h1>Korzinka</h1>
       <div class="items" v-if="cartsStore.carts.length">
-        <div v-for="i in cartsStore.carts" :key="i.id">
+        <div v-for="i in cartsStore.carts" :key="i._id">
           <cart-item :item="i" />
         </div>
-      </div>  
+      </div>
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
       <div class="comments flex">
         <label for="input" class="bold-4"
@@ -24,10 +30,10 @@ const cartsStore = useCartsStore();
           v-model="cartsStore.comment"
         />
       </div>
-      
+
       <div class="total flex">
         <p class="bold-4 total-title">Umumiy summa:</p>
-        <h2 class="bold-4 total-cost">{{ cartsStore.totalCost() }} so'm</h2>
+        <h2 class="bold-4 total-cost">{{ cartsStore.total }} so'm</h2>
         <button class="btn warning">Buyurtma berish</button>
       </div>
     </div>
@@ -47,7 +53,6 @@ const cartsStore = useCartsStore();
       flex-direction: column;
       gap: 1rem;
       margin-top: 1rem;
-
     }
     .empty {
       text-align: center;

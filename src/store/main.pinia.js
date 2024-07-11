@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 
 const useMainStore = defineStore("main", {
   state: () => ({
-    count: 0,
+    quantity: 0,
   }),
   actions: {
     increment() {
-      this.count++;
+      this.quantity++;
     },
   },
 });

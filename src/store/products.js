@@ -17,7 +17,6 @@ const useProductsData = defineStore("ProductsStore", {
       }
     },
     filterByType(type) {
-      console.log(this.products.filter((p) => p.type == type));
       return this.products.filter((p) => p.type == type);
     },
   },

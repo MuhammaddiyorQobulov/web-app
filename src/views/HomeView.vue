@@ -15,6 +15,8 @@ onMounted(() => {
   typeStore.getTypes();
   cartsStore.getUserCarts();
 });
+
+
 </script>
 <template>
   <div class="home">

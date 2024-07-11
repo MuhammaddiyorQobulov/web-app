@@ -7,15 +7,14 @@ const cartsStore = useCartsStore();
 onMounted(() => {
   cartsStore.getUserCarts();
 });
-
 </script>
 <template>
   <div class="carts container">
     <div class="wrapper">
       <h1>Korzinka</h1>
       <div class="items" v-if="cartsStore.carts.length">
-        <div v-for="i in cartsStore.carts" :key="i._id">
-          <cart-item :item="i" />
+        <div v-for="i in cartsStore.carts" :key="i">
+          <cart-item :productId="i._id" />
         </div>
       </div>
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>

@@ -5,11 +5,12 @@ const useCartsStore = defineStore("CartsStore", {
     carts: [],
     total: 0,
     comment: "",
+    userId: "668e8fd60d8d2ae42463aea3",
   }),
   actions: {
-    async addCart(userId, productId, quantity) {
+    async addCart(productId, quantity) {
       try {
-        const res = await api.post(`/user-cart/${userId}`, {
+        const res = await api.post(`/user-cart/${this.userId}`, {
           quantity,
           productId,
         });
@@ -20,12 +21,19 @@ const useCartsStore = defineStore("CartsStore", {
         console.error(err.message);
       }
     },
-    removeCart(id) {
-      this.carts = this.carts.filter((i) => i._id == id);
-    },
-    async getUserCarts(id) {
+    async removeCart(productId) {
       try {
-        const res = await api.get(`/user-cart/${id}`);
+        await api.put(`/user-cart/${this.userId}`, {
+          productId,
+        });
+        this.getUserCarts();
+      } catch (err) {
+        console.log(err.message);
+      }
+    },
+    async getUserCarts() {
+      try {
+        const res = await api.get(`/user-cart/${this.userId}`);
         const { products, total } = res.data;
         this.carts = products;
         this.total = total;

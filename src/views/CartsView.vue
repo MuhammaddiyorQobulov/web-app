@@ -5,7 +5,7 @@ import { onMounted } from "vue";
 const cartsStore = useCartsStore();
 
 onMounted(() => {
-  cartsStore.getUserCarts("668e8fd60d8d2ae42463aea3");
+  cartsStore.getUserCarts();
 });
 
 </script>

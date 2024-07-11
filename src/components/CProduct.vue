@@ -28,12 +28,7 @@ const props = defineProps({
     <div class="image">
       <img :src="'http://localhost:5003/' + props.product.imgUrl" alt="Image" />
       <div class="overlay">
-        <button
-          @click="
-            cartsStore.addCart('668e8fd60d8d2ae42463aea3', props.product._id, 1)
-          "
-          class="btn"
-        >
+        <button @click="cartsStore.addCart(props.product._id, 1)" class="btn">
           Add to cart
         </button>
       </div>

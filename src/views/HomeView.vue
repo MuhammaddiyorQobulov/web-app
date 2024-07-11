@@ -13,7 +13,7 @@ const typeStore = useTypeStore();
 onMounted(() => {
   productsStore.getProducts();
   typeStore.getTypes();
-  cartsStore.getUserCarts("668e8fd60d8d2ae42463aea3");
+  cartsStore.getUserCarts();
 });
 </script>
 <template>

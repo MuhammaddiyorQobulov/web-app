@@ -25,14 +25,11 @@ const props = defineProps({
   },
 });
 const { item } = storeToRefs(props);
-const deleteItem = () => {
-  cartsStore.removeCart(item._id);
-};
 </script>
 <template>
   <a-row :gutter="[16, 16]" class="item">
-    <div class="close-icon" @click="cartsStore.removeCart(item.id)">
-      <close-icon @click="deleteItem" />
+    <div class="close-icon" @click="cartsStore.removeCart(item._id)">
+      <close-icon />
     </div>
     <div class="image">
       <img :src="'http://localhost:5003/' + item.imgUrl" alt="image" />
@@ -58,26 +55,14 @@ const deleteItem = () => {
     </a-col>
     <a-col class="quantity flex">
       <button
-        @click="
-          cartsStore.addCart(
-            '668e8fd60d8d2ae42463aea3',
-            item._id,
-            item.quantity - 1
-          )
-        "
+        @click="cartsStore.addCart(item._id, item.quantity - 1)"
         :disabled="item.quantity <= 1"
         class="danger"
       >
         <minus-icon />
       </button>
       <button
-        @click="
-          cartsStore.addCart(
-            '668e8fd60d8d2ae42463aea3',
-            item._id,
-            item.quantity + 1
-          )
-        "
+        @click="cartsStore.addCart(item._id, item.quantity + 1)"
         class="success"
       >
         <plus-icon />

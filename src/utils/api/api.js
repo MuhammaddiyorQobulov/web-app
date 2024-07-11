@@ -42,7 +42,7 @@ export default {
   put(endpoint, data) {
     return api.put(endpoint, data);
   },
-  delete(endpoint) {
-    return api.delete(endpoint);
+  delete(endpoint, data) {
+    return api.delete(endpoint, data);
   },
 };

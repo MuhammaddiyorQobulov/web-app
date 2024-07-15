@@ -3,7 +3,6 @@ import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
 import { onMounted } from "vue";
 const cartsStore = useCartsStore();
-
 onMounted(() => {
   cartsStore.getUserCarts();
 });

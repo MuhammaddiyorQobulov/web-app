@@ -5,14 +5,14 @@ const useCartsStore = defineStore("CartsStore", {
     carts: [],
     total: 0,
     comment: "",
-    userId: "668e8fd60d8d2ae42463aea3",
+    userId: null,
     isFetching: false,
   }),
   actions: {
     async addCart(productId, quantity) {
       this.isFetching = true;
       try {
-        const res = await api.post(`/user-cart/${this.userId}`, {
+        const res = await api.post(`/user-cart`, {
           quantity,
           productId,
         });
@@ -26,7 +26,7 @@ const useCartsStore = defineStore("CartsStore", {
     async removeCart(productId) {
       this.isFetching = true;
       try {
-        await api.put(`/user-cart/${this.userId}`, {
+        await api.put(`/user-cart`, {
           productId,
         });
         this.getUserCarts();
@@ -39,7 +39,7 @@ const useCartsStore = defineStore("CartsStore", {
     async getUserCarts() {
       this.isFetching = true;
       try {
-        const res = await api.get(`/user-cart/${this.userId}`);
+        const res = await api.get(`/user-cart`);
         const { products, total } = res.data;
         this.carts = products;
         this.total = total;

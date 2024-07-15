@@ -11,7 +11,6 @@ const authStore = useAuthStore();
 const router = useRouter();
 onMounted(() => {
   authStore.GetUser();
-  console.log(authStore.user);
 });
 </script>
 <template>

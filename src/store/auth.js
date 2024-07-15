@@ -43,12 +43,12 @@ const useAuthStore = defineStore("AuthStore", {
     },
     async GetUser() {
       try {
-        const res = await api.get("/auth/user");
+        const { data } = await api.get("/auth/user");
         this.user = {
-          username: res.data.username,
-          avatar: res.data.avatar,
-          roles: res.data.roles,
-          _id: res.data._id,
+          username: data.username,
+          avatar: data.avatar,
+          roles: data.roles,
+          _id: data._id,
         };
         this.error = null;
       } catch (err) {

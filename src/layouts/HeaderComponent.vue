@@ -3,6 +3,16 @@ import { LogoIcon } from "@/assets/icons/logo";
 import { UserIcon } from "@/assets/icons/user";
 import MainSearch from "../components/MainSearch.vue";
 import { DownOutlined } from "@ant-design/icons-vue";
+import useAuthStore from "@/store/auth";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+
+const authStore = useAuthStore();
+const router = useRouter();
+onMounted(() => {
+  authStore.GetUser();
+  console.log(authStore.user);
+});
 </script>
 <template>
   <div class="header">
@@ -13,12 +23,18 @@ import { DownOutlined } from "@ant-design/icons-vue";
       <main-search />
     </div>
 
-    <a-dropdown>
+    <a-dropdown v-if="authStore.token">
       <a class="ant-dropdown-link user" @click.prevent>
         <div class="avatar">
-          <user-icon />
+          <img
+            class="img"
+            v-if="authStore.user.avatar"
+            :src="'http://localhost:5003/' + authStore.user.avatar"
+            alt=""
+          />
+          <user-icon v-else />
         </div>
-        <p>User Name</p>
+        <p>{{ authStore.user.username }}</p>
         <DownOutlined />
       </a>
       <template #overlay>
@@ -36,7 +52,16 @@ import { DownOutlined } from "@ant-design/icons-vue";
           </router-link>
 
           <a-menu-divider />
-          <a-menu-item key="4">Chiqish</a-menu-item>
+          <a-menu-item
+            key="4"
+            @click="
+              () => {
+                authStore.LogOut();
+                router.push('/login');
+              }
+            "
+            >Chiqish</a-menu-item
+          >
         </a-menu>
       </template>
     </a-dropdown>
@@ -69,6 +94,11 @@ import { DownOutlined } from "@ant-design/icons-vue";
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      .img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import ProductsView from "@/views/ProductsView.vue";
 import CartsView from "@/views/CartsView.vue";
 import LoginView from "@/views/AuthView/LoginView.vue";
 import RegistrationView from "@/views/AuthView/RegistrationVIew.vue";
+import HomeView from "@/views/HomeView.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     meta: { requiresAuth: true },
     component: HomeView,
     children: [
+      {
+        path: "/",
+        name: "products",
+        component: ProductsView,
+      },
       {
         path: "/carts",
         name: "carts",

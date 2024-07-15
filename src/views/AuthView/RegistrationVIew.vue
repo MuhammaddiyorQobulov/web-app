@@ -17,14 +17,14 @@ const handleRegistration = async () => {
     avatar: imgRef.value.files[0],
   });
   if (!authStore.error) {
-    authStore.setToken(authStore.token);
+    authStore.SetToken(authStore.token);
     router.push("/");
   }
 };
 </script>
 <template>
-  <div class="wrapper">
-    <div class="registration flex">
+  <div class="wrapper flex">
+    <div class="registration">
       <form @submit.prevent="handleRegistration">
         <h1>Registration</h1>
         <div class="input-group username">
@@ -77,7 +77,7 @@ const handleRegistration = async () => {
 .wrapper {
   background: url("@/assets/images/main-bg.png") no-repeat center;
   background-size: cover;
-  height: max-content;
+  height: 100vh;
   .registration {
     form {
       margin: 4rem 0;

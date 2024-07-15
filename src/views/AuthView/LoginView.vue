@@ -13,14 +13,14 @@ const handleLogin = async () => {
   await authStore.LoginUser(authData);
 
   if (!authStore.error) {
-    authStore.setToken(authStore.token);
+    authStore.SetToken(authStore.token);
     router.push("/");
   }
 };
 </script>
 <template>
-  <div class="wrapper">
-    <div class="login flex">
+  <div class="wrapper flex">
+    <div class="login">
       <form @submit.prevent="handleLogin">
         <h1>Login</h1>
         <div class="input-group username">
@@ -57,7 +57,8 @@ const handleLogin = async () => {
 .wrapper {
   background: url("@/assets/images/main-bg.png") no-repeat center;
   background-size: cover;
-  height: max-content;
+  height: 100vh;
+
   .login {
     form {
       margin: 4rem 0;

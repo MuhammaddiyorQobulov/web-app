@@ -1,6 +1,5 @@
 import api from "@/utils/api/api";
 import { defineStore } from "pinia";
-import { useRouter } from "vue-router";
 
 const useAuthStore = defineStore("AuthStore", {
   state: () => ({
@@ -11,18 +10,18 @@ const useAuthStore = defineStore("AuthStore", {
   actions: {
     setToken(token) {
       this.token = token;
-      const router = useRouter();
       if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
       }
       localStorage.setItem("token", token);
-      router.push("/");
     },
     async LoginUser(data) {
       try {
         const res = await api.post("/auth/login", data);
-        this.setToken(res.data.token);
+
+        this.token = res.data.token;
         this.error = null;
+        return res.data.token;
       } catch (err) {
         this.error = err.message;
       }
@@ -34,9 +33,10 @@ const useAuthStore = defineStore("AuthStore", {
             "Content-Type": "multipart/form-data",
           },
         });
+
         this.token = res.data.token;
-        this.setToken(res.data.token);
         this.error = null;
+        return res.data.token;
       } catch (err) {
         this.error = err.message;
       }

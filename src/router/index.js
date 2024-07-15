@@ -20,15 +20,18 @@ const routes = [
     name: "home",
     meta: { requiresAuth: true },
     component: HomeView,
-  },
-  {
-    path: "/carts",
-    name: "carts",
-    component: CartsView,
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    redirect: { name: "home" },
+    children: [
+      {
+        path: "/carts",
+        name: "carts",
+        component: CartsView,
+      },
+
+      {
+        path: "/:pathMatch(.*)*",
+        redirect: { name: "home" },
+      },
+    ],
   },
 ];
 const router = createRouter({

@@ -25,8 +25,8 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      //
+    if (error.response && error.response.status == 401) {
+      localStorage.removeItem("token");
     }
     return Promise.reject(error);
   }

@@ -16,6 +16,7 @@ onMounted(() => {
           <cart-item :productId="i._id" />
         </div>
       </div>
+
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
       <div class="comments flex">
         <label for="input" class="bold-4"

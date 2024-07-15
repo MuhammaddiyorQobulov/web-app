@@ -8,6 +8,7 @@ import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
+
 const router = useRouter();
 onMounted(() => {
   authStore.GetUser();

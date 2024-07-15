@@ -65,6 +65,7 @@ const useAuthStore = defineStore("AuthStore", {
         _id: null,
       };
       localStorage.removeItem("token");
+      location.reload();
     },
 
     SetToken(token) {

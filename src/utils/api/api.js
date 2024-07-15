@@ -33,16 +33,16 @@ api.interceptors.response.use(
 );
 
 export default {
-  get(endpoint, params) {
-    return api.get(endpoint, { params });
+  get(endpoint, params, headers) {
+    return api.get(endpoint, { params }, headers);
   },
-  post(endpoint, data) {
-    return api.post(endpoint, data);
+  post(endpoint, data, headers) {
+    return api.post(endpoint, data, headers);
   },
-  put(endpoint, data) {
-    return api.put(endpoint, data);
+  put(endpoint, data, headers) {
+    return api.put(endpoint, data, headers);
   },
-  delete(endpoint, data) {
-    return api.delete(endpoint, data);
+  delete(endpoint, data, headers) {
+    return api.delete(endpoint, data, headers);
   },
 };

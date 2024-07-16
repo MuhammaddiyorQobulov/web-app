@@ -25,6 +25,7 @@ const emits = defineEmits(["onClick"]);
   background: $shadow-light;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  white-space: nowrap;
   cursor: pointer;
 }
 

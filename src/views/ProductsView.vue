@@ -7,6 +7,7 @@ import { onMounted } from "vue";
 import useTypeStore from "@/store/type";
 import FilterTag from "@/components/FilterTag.vue";
 import { useRouter, useRoute } from "vue-router";
+import { Empty } from "ant-design-vue";
 
 const productsStore = useProductsData();
 const cartsStore = useCartsStore();
@@ -14,7 +15,7 @@ const typeStore = useTypeStore();
 const router = useRouter();
 const route = useRoute();
 onMounted(() => {
-  productsStore.getProducts({type:route.query.type});
+  productsStore.getProducts({ type: route.query.type });
   typeStore.getTypes();
   cartsStore.getUserCarts();
 });
@@ -47,7 +48,9 @@ const filterByType = (type) => {
           <h1 class="type-title bold-4">{{ t.title }}</h1>
           <div class="products">
             <product-box
-              v-for="p in productsStore.filterByType(route.query.type || 'all')"
+              v-for="p in productsStore.filterByType(
+                route.query.type || t.type
+              )"
               :key="p._id"
               :product="p"
             />
@@ -55,9 +58,11 @@ const filterByType = (type) => {
         </div>
       </div>
     </div>
-    <div v-if="!productsStore.products.length" class="wrapper container">
-      Bunday turgagi mahsulotlar hozircha mavjud emas!
-    </div>
+    <Empty
+      description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
+      v-if="!productsStore.products.length"
+      class="wrapper container"
+    />
   </div>
   <carts-modal v-if="cartsStore.carts.length" />
 </template>
@@ -74,12 +79,16 @@ const filterByType = (type) => {
     display: flex;
     gap: 1rem;
     padding: 2rem 0;
+    width: calc(100% - 10vw);
+    height: 35px;
+    overflow: scroll;
   }
   .wrapper {
     padding: 2rem 0;
     .type-title {
       margin: 2rem 0;
     }
+
     .products {
       display: flex;
       flex-wrap: wrap;

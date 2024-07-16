@@ -28,7 +28,7 @@ const cartsStore = useCartsStore();
   height: max-content;
   left: calc((100% - 400px - 1rem) / 2);
   bottom: 20px;
-  z-index: 100;
+  z-index: 1;
   background: $white;
   border-radius: 10px;
   justify-content: space-between;

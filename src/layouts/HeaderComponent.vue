@@ -75,8 +75,13 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   height: 50px;
-  border-bottom: 1px solid $shadow-light;
   padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: $white;
+  box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
+  z-index: 10;
 
   .search-bar {
     width: 500px;

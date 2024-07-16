@@ -6,9 +6,9 @@ const useProductsData = defineStore("ProductsStore", {
     error: null,
   }),
   actions: {
-    async getProducts() {
+    async getProducts(filter) {
       try {
-        const res = await api.get("/products");
+        const res = await api.get("/products", filter);
         this.products = res.data;
         this.error = null;
       } catch (err) {
@@ -17,6 +17,7 @@ const useProductsData = defineStore("ProductsStore", {
       }
     },
     filterByType(type) {
+      if(type == "all") return this.products
       return this.products.filter((p) => p.type == type);
     },
   },

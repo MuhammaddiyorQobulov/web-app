@@ -4,6 +4,7 @@ import CartsView from "@/views/CartsView.vue";
 import LoginView from "@/views/AuthView/LoginView.vue";
 import RegistrationView from "@/views/AuthView/RegistrationVIew.vue";
 import HomeView from "@/views/HomeView.vue";
+import OrdersView from "@/views/OrdersView.vue";
 
 const routes = [
   {
@@ -32,7 +33,11 @@ const routes = [
         name: "carts",
         component: CartsView,
       },
-
+      {
+        path: "/orders",
+        name: "orders",
+        component: OrdersView,
+      },
       {
         path: "/:pathMatch(.*)*",
         redirect: { name: "home" },

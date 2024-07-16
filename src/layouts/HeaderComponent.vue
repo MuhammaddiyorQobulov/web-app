@@ -39,7 +39,7 @@ const router = useRouter();
             <a-menu-item key="1">Profile</a-menu-item>
           </router-link>
 
-          <router-link to="/#">
+          <router-link to="/orders">
             <a-menu-item key="2">Buyurtmalar</a-menu-item>
           </router-link>
 

@@ -21,8 +21,14 @@ const toggleModal = (arg) => {
 };
 
 const order = () => {
-  orderStore.createOrder(data);
-  toggleModal(false);
+  try {
+    orderStore.createOrder(data);
+  } catch (err) {
+    console.log(err.message);
+  } finally {
+    toggleModal(false);
+    location.reload();
+  }
 };
 </script>
 <template>

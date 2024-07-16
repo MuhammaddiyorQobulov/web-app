@@ -26,7 +26,7 @@ const emits = defineEmits(["closeModal"]);
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 100;
   .overlay {
     position: absolute;
     top: 0;
@@ -39,6 +39,7 @@ const emits = defineEmits(["closeModal"]);
     align-items: center;
   }
   .modal {
+    padding: 2rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -49,9 +50,10 @@ const emits = defineEmits(["closeModal"]);
   }
   .close-icon {
     position: absolute;
-    top: 2.5%;
-    right: 2.5%;
     cursor: pointer;
+    top: 2%;
+    right: 2.5%;
+    width: 25px;
   }
 }
 </style>

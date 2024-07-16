@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps, defineEmits } from "vue";
 import moment from "moment";
+
 const props = defineProps({
   product: {
     _id: {
@@ -26,6 +27,10 @@ const props = defineProps({
     quantity: {
       type: Number,
     },
+  },
+  status: {
+    type: String,
+    required: true,
   },
 });
 const emits = defineEmits(["onClick"]);
@@ -66,7 +71,7 @@ console.log(emits);
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
 .order-box {
-border: 1px solid $shadow-light;
+  border: 1px solid $shadow-light;
   border-radius: 8px;
   padding: 1rem;
   .infos {
@@ -76,9 +81,11 @@ border: 1px solid $shadow-light;
     .img {
       text-align: center;
       overflow: hidden;
-      width: 100%;
+      width: 100px;
+      height: 110px;
       img {
-        height: 80%;
+        width: 100%;
+        height: 80px;
       }
     }
     .description {
@@ -92,6 +99,7 @@ border: 1px solid $shadow-light;
     .info {
       .order-info {
         display: flex;
+        align-items: center;
         p:first-of-type {
           width: 70px;
           font-weight: 500;

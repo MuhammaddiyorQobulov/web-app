@@ -4,8 +4,10 @@ import { defineStore } from "pinia";
 const useOrderStore = defineStore("OrderStore", {
   state: () => ({
     orders: [],
+    statuses: [],
     error: null,
   }),
+
   actions: {
     async createOrder(data) {
       try {
@@ -26,6 +28,17 @@ const useOrderStore = defineStore("OrderStore", {
         console.error(err.message);
         this.error = err.message;
       }
+    },
+    async getStatuses() {
+      try {
+        const res = await api.get("/orders/status");
+        this.statuses = res.data;
+      } catch (err) {
+        console.log(err.message);
+      }
+    },
+    statusTitle(status) {
+      return this.statuses.length && this.statuses.find((s) => s.status === status).title;
     },
   },
 });

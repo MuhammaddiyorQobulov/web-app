@@ -4,15 +4,11 @@ import { UserIcon } from "@/assets/icons/user";
 import MainSearch from "../components/MainSearch.vue";
 import { DownOutlined } from "@ant-design/icons-vue";
 import useAuthStore from "@/store/auth";
-import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
 
 const router = useRouter();
-onMounted(() => {
-  authStore.GetUser();
-});
 </script>
 <template>
   <div class="header">

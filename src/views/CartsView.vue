@@ -1,10 +1,17 @@
 <script setup>
 import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
+import useOrderStore from "@/store/order";
+const orderStore = useOrderStore();
 const cartsStore = useCartsStore();
 onMounted(() => {
   cartsStore.getUserCarts();
+});
+const data = reactive({
+  comment: "",
+  address: "",
+  phone: "",
 });
 </script>
 <template>
@@ -18,22 +25,45 @@ onMounted(() => {
       </div>
 
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
-      <div class="comments flex">
-        <label for="input" class="bold-4"
+      <div class="input-group flex">
+        <label for="comment" class="bold-4"
           >Buyurtma uchun qo'shimcha izoh qoldiring</label
         >
         <textarea
           name="textarea"
-          id="input"
+          id="comment"
           rows="6"
-          v-model="cartsStore.comment"
+          v-model="data.comment"
         />
       </div>
-
+      <div class="input-group flex">
+        <label for="address" class="bold-4"
+          >Buyurtma uchun manzil qoldiring (yetkazib beruvchiga)</label
+        >
+        <textarea
+          name="textarea"
+          id="address"
+          rows="2"
+          v-model="data.address"
+        />
+      </div>
+      <div class="input-group flex">
+        <label for="phone" class="bold-4">Telefon raqam qoldiring!</label>
+        <input
+          name="phone"
+          class="phone"
+          id="phone"
+          placeholder="+998YYXXXxxxx"
+          v-model="data.phone"
+          type="tel"
+        />
+      </div>
       <div class="total flex">
         <p class="bold-4 total-title">Umumiy summa:</p>
         <h2 class="bold-4 total-cost">{{ cartsStore.total }} so'm</h2>
-        <button class="btn warning">Buyurtma berish</button>
+        <button class="btn warning" @click="orderStore.createOrder(data)">
+          Buyurtma berish
+        </button>
       </div>
     </div>
   </div>
@@ -62,7 +92,7 @@ onMounted(() => {
       border-radius: 8px;
       margin-top: 3rem;
     }
-    .comments {
+    .input-group {
       margin-top: 4rem;
       flex-direction: column;
       align-items: start;
@@ -72,6 +102,13 @@ onMounted(() => {
         font-size: 20px;
         outline: none;
         padding: 0.5rem;
+      }
+      input {
+        background: transparent;
+        padding: 0.5rem;
+        border-radius: 8px;
+        width: 300px;
+        border: 1px solid $shadow-light;
       }
     }
     .total {

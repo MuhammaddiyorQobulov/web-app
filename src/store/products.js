@@ -3,6 +3,7 @@ import api from "@/utils/api/api";
 const useProductsData = defineStore("ProductsStore", {
   state: () => ({
     products: [],
+    searchValue: "",
     error: null,
   }),
   actions: {
@@ -17,8 +18,15 @@ const useProductsData = defineStore("ProductsStore", {
       }
     },
     filterByType(type) {
-      if (!type) return this.products;
-      return this.products.filter((p) => p.type == type);
+      if (!type)
+        return this.products.filter((p) =>
+          p.title.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      return this.products.filter(
+        (p) =>
+          p.type == type &&
+          p.title.toLowerCase().includes(this.searchValue.toLowerCase())
+      );
     },
   },
 });

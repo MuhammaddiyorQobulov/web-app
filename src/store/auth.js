@@ -10,6 +10,7 @@ const useAuthStore = defineStore("AuthStore", {
       id: null,
     },
     token: localStorage.getItem("token") || null,
+    isAdmin: false,
     error: null,
   }),
 
@@ -21,7 +22,6 @@ const useAuthStore = defineStore("AuthStore", {
             "Content-Type": "multipart/form-data",
           },
         });
-
         this.token = res.data.token;
         this.error = null;
         return res.data.token;
@@ -50,6 +50,7 @@ const useAuthStore = defineStore("AuthStore", {
           roles: data.roles,
           _id: data._id,
         };
+        this.ToggleAdmin(data.roles);
         this.error = null;
       } catch (err) {
         this.error = err.message;
@@ -74,6 +75,11 @@ const useAuthStore = defineStore("AuthStore", {
         localStorage.removeItem("token");
       }
       localStorage.setItem("token", token);
+    },
+    ToggleAdmin(roles) {
+      if (roles.includes("ADMIN")) {
+        this.isAdmin = true;
+      }
     },
   },
 });

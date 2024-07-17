@@ -41,7 +41,12 @@ const filterByType = (type) => {
     <div v-for="t in typeStore.types" :key="t._id">
       <div v-if="productsStore.filterByType(route.query.type).length">
         <div
-          v-if="!route.query.type || t.type === route.query.type"
+          v-if="
+            (!route.query.type || t.type === route.query.type) &&
+            productsStore
+              .filterByType(t.type)
+              .findIndex((p) => p.type == t.type) !== -1
+          "
           class="wrapper container"
         >
           <h1 class="type-title bold-4">{{ t.title }}</h1>

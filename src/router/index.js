@@ -5,6 +5,8 @@ import LoginView from "@/views/AuthView/LoginView.vue";
 import RegistrationView from "@/views/AuthView/RegistrationVIew.vue";
 import HomeView from "@/views/HomeView.vue";
 import OrdersView from "@/views/OrdersView.vue";
+import AdminPanel from "@/views/AdminView/AdminPanel.vue";
+import NotFound from "@/views/404View.vue";
 
 const routes = [
   {
@@ -16,6 +18,11 @@ const routes = [
     path: "/registration",
     name: "registration",
     component: RegistrationView,
+  },
+  {
+    path: "/admin-panel",
+    name: "admin-panel",
+    component: AdminPanel,
   },
   {
     path: "/",
@@ -40,7 +47,7 @@ const routes = [
       },
       {
         path: "/:pathMatch(.*)*",
-        redirect: { name: "home" },
+        component: NotFound,
       },
     ],
   },

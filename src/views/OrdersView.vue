@@ -1,14 +1,16 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import useOrderStore from "@/store/order";
 import OrderBox from "@/components/OrderBox.vue";
 import { useRoute, useRouter } from "vue-router";
 import FilterTag from "@/components/FilterTag.vue";
 import { Empty } from "ant-design-vue";
+import moment from "moment";
 
 const router = useRouter();
 const route = useRoute();
 const ordersStore = useOrderStore();
+const activeKey = ref([]);
 const filterByStatus = (type) => {
   router.push({ query: { type } });
 };
@@ -20,29 +22,32 @@ onMounted(() => {
 </script>
 <template>
   <div class="orders flex container">
-    <div
-      class="order"
-      v-for="order in ordersStore.filter(route.query.type)"
-      :key="order._id"
-    >
-      <order-box v-for="p in order.products" :key="p._id" :product="p" />
-      <div class="infos flex">
-        <div class="status" :class="order.status.toLowerCase()">
-          {{ ordersStore.statusTitle(order.status) }}
+    <a-collapse v-model:activeKey="activeKey" accordion>
+      <a-collapse-panel
+        class="order"
+        v-for="order in ordersStore.filter(route.query.type)"
+        :key="order._id"
+        :header="moment(order.date).format('YYYY-MM-DD HH:mm:ss')"
+      >
+        <order-box v-for="p in order.products" :key="p._id" :product="p" />
+        <div class="infos flex">
+          <div class="status" :class="order.status.toLowerCase()">
+            {{ ordersStore.statusTitle(order.status) }}
+          </div>
+          <div class="total">
+            <p class="total-title">Jami tolo'v uchun:</p>
+            <p class="total-cost bold-4">
+              {{ order.total }}
+            </p>
+          </div>
         </div>
-        <div class="total">
-          <p class="total-title">Jami tolo'v uchun:</p>
-          <p class="total-cost bold-4">
-            {{ order.total }}
-          </p>
-        </div>
-      </div>
-    </div>
+      </a-collapse-panel>
+    </a-collapse>
 
     <Empty
       description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
       v-if="!ordersStore.filter(route.query.type).length"
-      class="wrapper container"
+      class="container"
     />
 
     <div class="filter-status">
@@ -60,12 +65,13 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "@/styles/variables";
+
 .orders {
   flex-direction: column-reverse;
+  align-items: start;
   padding: 1rem 0 2rem 0;
   .order {
     border: 1px solid $grey;
-    padding: 2rem;
     display: flex;
     overflow: hidden;
     gap: 1rem;
@@ -112,8 +118,11 @@ onMounted(() => {
     }
   }
   .filter-status {
+    max-width: 100%;
+    overflow: scroll;
     display: flex;
     gap: 1rem;
+    padding-bottom: 1rem;
     margin: 1rem 0;
   }
 }

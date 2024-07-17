@@ -1,13 +1,15 @@
 <script setup>
 import { LogoIcon } from "@/assets/icons/logo";
 import { UserIcon } from "@/assets/icons/user";
-import MainSearch from "../components/MainSearch.vue";
+import MainSearch from "@/components/MainSearch.vue";
 import { DownOutlined } from "@ant-design/icons-vue";
 import useAuthStore from "@/store/auth";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import useProductsData from "@/store/products";
 
 const authStore = useAuthStore();
-
+const productsStore = useProductsData();
+const route = useRoute();
 const router = useRouter();
 </script>
 <template>
@@ -15,8 +17,8 @@ const router = useRouter();
     <router-link to="/">
       <LogoIcon />
     </router-link>
-    <div class="search-bar">
-      <main-search />
+    <div class="search-bar" v-if="route.path == '/'">
+      <main-search @onChange="(a) => (productsStore.searchValue = a)" />
     </div>
 
     <a-dropdown v-if="authStore.token">
@@ -47,6 +49,9 @@ const router = useRouter();
             <a-menu-item key="3">Korzinka</a-menu-item>
           </router-link>
 
+          <router-link to="/admin-panel" v-if="authStore.isAdmin">
+            <a-menu-item key="5">Admin Paneli</a-menu-item>
+          </router-link>
           <a-menu-divider />
           <a-menu-item
             key="4"

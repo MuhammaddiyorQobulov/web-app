@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps} from "vue";
 import moment from "moment";
 
 const props = defineProps({
@@ -29,8 +29,6 @@ const props = defineProps({
     },
   },
 });
-const emits = defineEmits(["onClick"]);
-console.log(emits);
 </script>
 <template>
   <div class="order-box">

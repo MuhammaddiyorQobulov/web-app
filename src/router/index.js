@@ -6,6 +6,7 @@ import RegistrationView from "@/views/AuthView/RegistrationVIew.vue";
 import HomeView from "@/views/HomeView.vue";
 import OrdersView from "@/views/OrdersView.vue";
 import AdminPanel from "@/views/AdminView/AdminPanel.vue";
+import AdminOrders from "@/views/AdminView/AdminOrders.vue";
 import NotFound from "@/views/404View.vue";
 
 const routes = [
@@ -20,9 +21,37 @@ const routes = [
     component: RegistrationView,
   },
   {
-    path: "/admin-panel",
+    path: "/admin",
     name: "admin-panel",
+    meta: { requiresAuth: true },
     component: AdminPanel,
+    children: [
+      {
+        path: "orders",
+        name: "admin-orders",
+        component: AdminOrders,
+      },
+      {
+        path: "delivered",
+        name: "admin-delivered",
+        component: AdminOrders,
+      },
+      {
+        path: "statistics",
+        name: "admin-statistics",
+        component: AdminOrders,
+      },
+      {
+        path: "products",
+        name: "admin-products",
+        component: AdminOrders,
+      },
+      {
+        path: "users",
+        name: "admin-users",
+        component: AdminOrders,
+      },
+    ],
   },
   {
     path: "/",

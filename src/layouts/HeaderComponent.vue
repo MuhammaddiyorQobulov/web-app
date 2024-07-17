@@ -37,19 +37,22 @@ const router = useRouter();
       </a>
       <template #overlay>
         <a-menu>
-          <router-link to="/#">
+          <router-link v-if="route.path != '/#'" to="/#">
             <a-menu-item key="1">Profile</a-menu-item>
           </router-link>
 
-          <router-link to="/orders">
+          <router-link v-if="route.path != '/orders'" to="/orders">
             <a-menu-item key="2">Buyurtmalar</a-menu-item>
           </router-link>
 
-          <router-link to="/carts">
+          <router-link v-if="route.path != '/carts'" to="/carts">
             <a-menu-item key="3">Korzinka</a-menu-item>
           </router-link>
 
-          <router-link to="/admin-panel" v-if="authStore.isAdmin">
+          <router-link
+            v-if="route.path != '/admin-panel' && authStore.isAdmin"
+            to="/admin-panel"
+          >
             <a-menu-item key="5">Admin Paneli</a-menu-item>
           </router-link>
           <a-menu-divider />

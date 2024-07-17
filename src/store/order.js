@@ -37,8 +37,15 @@ const useOrderStore = defineStore("OrderStore", {
         console.log(err.message);
       }
     },
+    filter(status) {
+      if (!status) return this.orders;
+      return this.orders.filter((o) => o.status === status);
+    },
     statusTitle(status) {
-      return this.statuses.length && this.statuses.find((s) => s.status === status).title;
+      return (
+        this.statuses.length &&
+        this.statuses.find((s) => s.status === status).title
+      );
     },
   },
 });

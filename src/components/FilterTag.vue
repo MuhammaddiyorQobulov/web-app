@@ -5,7 +5,10 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const props = defineProps({
   title: String,
-  type: String,
+  type: {
+    type: String,
+    default: undefined,
+  },
 });
 const emits = defineEmits(["onClick"]);
 </script>

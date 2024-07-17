@@ -2,8 +2,17 @@
 import { onMounted } from "vue";
 import useOrderStore from "@/store/order";
 import OrderBox from "@/components/OrderBox.vue";
+import { useRoute, useRouter } from "vue-router";
+import FilterTag from "@/components/FilterTag.vue";
+import { Empty } from "ant-design-vue";
 
+const router = useRouter();
+const route = useRoute();
 const ordersStore = useOrderStore();
+const filterByStatus = (type) => {
+  router.push({ query: { type } });
+};
+
 onMounted(() => {
   ordersStore.getUserOrders();
   ordersStore.getStatuses();
@@ -11,13 +20,16 @@ onMounted(() => {
 </script>
 <template>
   <div class="orders flex container">
-    <div class="order" v-for="order in ordersStore.orders" :key="order._id">
+    <div
+      class="order"
+      v-for="order in ordersStore.filter(route.query.type)"
+      :key="order._id"
+    >
       <order-box v-for="p in order.products" :key="p._id" :product="p" />
       <div class="infos flex">
         <div class="status" :class="order.status.toLowerCase()">
           {{ ordersStore.statusTitle(order.status) }}
         </div>
-
         <div class="total">
           <p class="total-title">Jami tolo'v uchun:</p>
           <p class="total-cost bold-4">
@@ -26,6 +38,23 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
+    <Empty
+      description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
+      v-if="!ordersStore.filter(route.query.type).length"
+      class="wrapper container"
+    />
+
+    <div class="filter-status">
+      <filter-tag title="Barchasi" @onClick="filterByStatus" />
+      <filter-tag
+        v-for="item in ordersStore.statuses"
+        :key="item.status"
+        :title="item.title"
+        :type="item.status"
+        @onClick="filterByStatus(item.status)"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,6 +62,7 @@ onMounted(() => {
 @import "@/styles/variables";
 .orders {
   flex-direction: column-reverse;
+  padding: 1rem 0 2rem 0;
   .order {
     border: 1px solid $grey;
     padding: 2rem;
@@ -80,6 +110,11 @@ onMounted(() => {
       color: $btn-warning;
       background: rgba($btn-warning, 0.15);
     }
+  }
+  .filter-status {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
   }
 }
 </style>

@@ -28,10 +28,6 @@ const props = defineProps({
       type: Number,
     },
   },
-  status: {
-    type: String,
-    required: true,
-  },
 });
 const emits = defineEmits(["onClick"]);
 console.log(emits);

@@ -15,13 +15,12 @@ const typeStore = useTypeStore();
 const router = useRouter();
 const route = useRoute();
 onMounted(() => {
-  productsStore.getProducts({ type: route.query.type });
+  productsStore.getProducts();
   typeStore.getTypes();
   cartsStore.getUserCarts();
 });
 const filterByType = (type) => {
   router.push({ query: { type } });
-  productsStore.getProducts({ type });
 };
 </script>
 <template>
@@ -40,17 +39,15 @@ const filterByType = (type) => {
       />
     </div>
     <div v-for="t in typeStore.types" :key="t._id">
-      <div v-if="productsStore.products.length">
+      <div v-if="productsStore.filterByType(route.query.type).length">
         <div
-          v-if="productsStore.filterByType(t.type).length > 0"
+          v-if="!route.query.type || t.type === route.query.type"
           class="wrapper container"
         >
           <h1 class="type-title bold-4">{{ t.title }}</h1>
           <div class="products">
             <product-box
-              v-for="p in productsStore.filterByType(
-                route.query.type || t.type
-              )"
+              v-for="p in productsStore.filterByType(t.type)"
               :key="p._id"
               :product="p"
             />
@@ -59,8 +56,8 @@ const filterByType = (type) => {
       </div>
     </div>
     <Empty
+      v-if="!productsStore.filterByType(route.query.type).length"
       description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
-      v-if="!productsStore.products.length"
       class="wrapper container"
     />
   </div>

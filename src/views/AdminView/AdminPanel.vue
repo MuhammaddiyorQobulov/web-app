@@ -1,8 +1,13 @@
 <script setup>
 import { LogoIcon } from "@/assets/icons/logo";
 import useAuthStore from "@/store/auth";
+import { onMounted } from "vue";
 
 const authStore = useAuthStore();
+
+onMounted(() => {
+  authStore.GetUser();
+});
 </script>
 <template>
   <div>

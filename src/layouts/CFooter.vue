@@ -29,7 +29,7 @@ const datas = [
 <template>
   <div class="footer container">
     <div>
-      <h2>{{ new Date().getFullYear() }} Express 24</h2>
+      <h2>© {{ new Date().getFullYear() }} Express 24</h2>
       <div class="socials">
         <TelegramIcon />
         <FacebookIcon />

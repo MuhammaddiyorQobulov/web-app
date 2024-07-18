@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/utils/api/api";
+import { message } from "ant-design-vue";
 const useCartsStore = defineStore("CartsStore", {
   state: () => ({
     carts: null,
@@ -16,9 +17,10 @@ const useCartsStore = defineStore("CartsStore", {
         this.carts = null;
         this.total = 0;
         this.error = null;
+        message.success("Sizning buyurtmangiz qabul qilindi");
       } catch (err) {
-        console.error(err.message);
         this.error = err.message;
+        message.error("Sizning buyurtmangiz qabul qilinmadi");
       }
     },
     async addCart(productId, quantity) {
@@ -31,8 +33,11 @@ const useCartsStore = defineStore("CartsStore", {
         const { products, total } = res.data;
         this.carts = products;
         this.total = total;
+        this.error = null;
+        message.success("Sizning savatingizga mahsulot qo'shildi");
       } catch (err) {
-        console.error(err.message);
+        this.error = err.message;
+        message.error("Sizning savatingizga mahsulot qo'shilmadi");
       }
     },
     async removeCart(productId) {
@@ -42,8 +47,10 @@ const useCartsStore = defineStore("CartsStore", {
           productId,
         });
         this.getUserCarts();
+        message.success("Sizning savatingizdan mahsulot o'chirildi");
       } catch (err) {
-        console.log(err.message);
+        this.error = err.message;
+        message.error("Sizning savatingizdan mahsulot o'chirilmadi");
       } finally {
         this.isFetching = false;
       }

@@ -1,6 +1,6 @@
 import api from "@/utils/api/api";
 import { defineStore } from "pinia";
-
+import { message } from "ant-design-vue";
 const useAuthStore = defineStore("AuthStore", {
   state: () => ({
     user: {
@@ -24,6 +24,7 @@ const useAuthStore = defineStore("AuthStore", {
         });
         this.token = res.data.token;
         this.error = null;
+        // message.success("Siz ro'yhatdan o'tdingiz");
         return res.data.token;
       } catch (err) {
         this.error = err.message;
@@ -35,10 +36,11 @@ const useAuthStore = defineStore("AuthStore", {
 
         this.token = res.data.token;
         this.error = null;
-
+        message.success("Siz ro'yhatdan o'tdingiz");
         return res.data.token;
       } catch (err) {
         this.error = err.message;
+        // message.error("Iltimos, qaytadan kiriting");
       }
     },
     async GetUser() {

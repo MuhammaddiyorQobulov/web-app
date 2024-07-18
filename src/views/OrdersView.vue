@@ -71,6 +71,8 @@ onMounted(() => {
 }
 .collapses {
   width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .empty {

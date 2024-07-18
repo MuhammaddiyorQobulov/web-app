@@ -60,8 +60,6 @@ const handleRegistration = async () => {
         </div>
         <div class="submit-btn">
           <button class="btn" type="submit">Registration</button>
-
-          <p class="error" v-if="authStore.error">{{ authStore.error }}</p>
         </div>
         <p>
           Agar oldin ro'yhatdan o'tkan bo'lsangiz
@@ -102,7 +100,6 @@ const handleRegistration = async () => {
       }
       .submit-btn {
         position: relative;
-        margin-bottom: 2rem;
         .btn {
           width: 100%;
           border: none;
@@ -114,12 +111,6 @@ const handleRegistration = async () => {
           &:active {
             transform: scale(0.99);
           }
-        }
-        .error {
-          color: $btn-danger;
-          font-size: 12px;
-          position: absolute;
-          bottom: -20px;
         }
       }
     }

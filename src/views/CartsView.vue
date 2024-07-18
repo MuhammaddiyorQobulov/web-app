@@ -3,6 +3,8 @@ import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
 import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const cartsStore = useCartsStore();
 onMounted(() => {
   cartsStore.getUserCarts();
@@ -18,16 +20,13 @@ const toggleModal = (arg) => {
   isModal.value = arg;
 };
 
-const order = () => {
-  try {
-    cartsStore.createOrder(data);
+const order = async () => {
+  await cartsStore.createOrder(data);
+  if (!cartsStore.error) {
     data.comment = "";
     data.address = "";
     data.phone = "";
-    location.pathname = "/orders";
-  } catch (err) {
-    console.log(err.message);
-  } finally {
+    router.push("/orders");
     toggleModal(false);
   }
 };

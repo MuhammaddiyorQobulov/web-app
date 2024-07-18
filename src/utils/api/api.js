@@ -1,5 +1,6 @@
 import axios from "axios";
 import baseURL from "@/utils/api/url.js";
+import { message } from "ant-design-vue";
 const api = axios.create({
   baseURL: baseURL + "api",
   headers: {
@@ -25,6 +26,7 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    message.error(error.response.data.message);
     if (error.response && error.response.status == 401) {
       localStorage.removeItem("token");
     }

@@ -66,7 +66,7 @@ const filterByType = (type) => {
       class="wrapper container"
     />
   </div>
-  <carts-modal v-if="cartsStore.carts.length" />
+  <carts-modal v-if="cartsStore.carts" />
 </template>
 <style scoped lang="scss">
 .home {

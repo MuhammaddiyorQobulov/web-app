@@ -27,7 +27,7 @@ onMounted(() => {
         <a-collapse-panel
           class="order"
           v-for="order in ordersStore.filter(route.query.type)"
-          :key="order"
+          :key="order._id"
           :header="moment(order.date).format('YYYY-MM-DD HH:mm:ss')"
         >
           <order-box v-for="p in order.products" :key="p._id" :product="p" />

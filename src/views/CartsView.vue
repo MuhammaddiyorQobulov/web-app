@@ -2,12 +2,8 @@
 import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
 import { onMounted, reactive, ref } from "vue";
-import useOrderStore from "@/store/order";
 import ModalComponent from "@/components/ModalComponent.vue";
-import { useRouter } from "vue-router";
-const orderStore = useOrderStore();
 const cartsStore = useCartsStore();
-const router = useRouter();
 onMounted(() => {
   cartsStore.getUserCarts();
 });
@@ -24,13 +20,13 @@ const toggleModal = (arg) => {
 
 const order = () => {
   try {
-    orderStore.createOrder(data);
+    cartsStore.createOrder(data);
   } catch (err) {
     console.log(err.message);
   } finally {
     toggleModal(false);
-    router.push("/orders");
   }
+  location.pathname='/orders';
 };
 </script>
 <template>

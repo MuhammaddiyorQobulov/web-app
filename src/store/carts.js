@@ -7,8 +7,18 @@ const useCartsStore = defineStore("CartsStore", {
     comment: "",
     userId: null,
     isFetching: false,
+    error: null,
   }),
   actions: {
+    async createOrder(data) {
+      try {
+        await api.post("/orders", data);
+        this.error = null;
+      } catch (err) {
+        console.error(err.message);
+        this.error = err.message;
+      }
+    },
     async addCart(productId, quantity) {
       this.isFetching = true;
       try {

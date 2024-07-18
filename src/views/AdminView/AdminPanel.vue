@@ -46,7 +46,7 @@ onMounted(() => {
               <img
                 class="img"
                 v-if="authStore.user.avatar"
-                :src="'http://localhost:5003/' + authStore.user.avatar"
+                :src="'htt/' + authStore.user.avatar"
                 alt=""
               />
               <user-icon v-else />

@@ -30,7 +30,6 @@ const order = () => {
   } finally {
     toggleModal(false);
     router.push("/orders");
-    location.reload();
   }
 };
 </script>
@@ -38,7 +37,7 @@ const order = () => {
   <div class="carts container">
     <div class="wrapper">
       <h1>Korzinka</h1>
-      <div class="items" v-if="cartsStore.carts.length">
+      <div class="items" v-if="cartsStore.carts">
         <div v-for="i in cartsStore.carts" :key="i">
           <cart-item :productId="i._id" />
         </div>

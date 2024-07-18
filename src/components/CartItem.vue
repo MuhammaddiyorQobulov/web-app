@@ -4,7 +4,7 @@ import { CloseIcon } from "@/assets/icons/close";
 import { PlusIcon } from "@/assets/icons/plus";
 import { MinusIcon } from "@/assets/icons/minus";
 import useCartsStore from "@/store/carts";
-
+import baseUrl from "@/utils/api/url";
 const cartsStore = useCartsStore();
 const props = defineProps({
   productId: {
@@ -20,7 +20,7 @@ const item = cartsStore.getOneCart(props.productId);
       <close-icon />
     </div>
     <div class="image">
-      <img :src="'http://localhost:5003/' + item.imgUrl" alt="image" />
+      <img :src="baseUrl + item.imgUrl" alt="image" />
     </div>
     <a-col
       :xs="6"

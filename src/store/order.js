@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 
 const useOrderStore = defineStore("OrderStore", {
   state: () => ({
-    orders: [],
+    orders: null,
     statuses: [],
     error: null,
   }),

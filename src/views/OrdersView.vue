@@ -21,50 +21,61 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="orders flex container">
-    <a-collapse v-model:activeKey="activeKey" accordion>
-      <a-collapse-panel
-        class="order"
-        v-for="order in ordersStore.filter(route.query.type)"
-        :key="order._id"
-        :header="moment(order.date).format('YYYY-MM-DD HH:mm:ss')"
-      >
-        <order-box v-for="p in order.products" :key="p._id" :product="p" />
-        <div class="infos flex">
-          <div class="status" :class="order.status.toLowerCase()">
-            {{ ordersStore.statusTitle(order.status) }}
+  <div class="wrapper flex" v-if="ordersStore.orders">
+    <div class="orders flex container">
+      <a-collapse class="collapses" v-model:activeKey="activeKey" accordion>
+        <a-collapse-panel
+          class="order"
+          v-for="order in ordersStore.filter(route.query.type)"
+          :key="order"
+          :header="moment(order.date).format('YYYY-MM-DD HH:mm:ss')"
+        >
+          <order-box v-for="p in order.products" :key="p._id" :product="p" />
+          <div class="infos flex">
+            <div class="status" :class="order.status.toLowerCase()">
+              {{ ordersStore.statusTitle(order.status) }}
+            </div>
+            <div class="total">
+              <p class="total-title">Jami tolo'v uchun:</p>
+              <p class="total-cost bold-4">
+                {{ order.total }}
+              </p>
+            </div>
           </div>
-          <div class="total">
-            <p class="total-title">Jami tolo'v uchun:</p>
-            <p class="total-cost bold-4">
-              {{ order.total }}
-            </p>
-          </div>
-        </div>
-      </a-collapse-panel>
-    </a-collapse>
-
-    <Empty
-      description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
-      v-if="!ordersStore.filter(route.query.type).length"
-      class="container"
-    />
-
-    <div class="filter-status">
-      <filter-tag title="Barchasi" @onClick="filterByStatus" />
-      <filter-tag
-        v-for="item in ordersStore.statuses"
-        :key="item.status"
-        :title="item.title"
-        :type="item.status"
-        @onClick="filterByStatus(item.status)"
+        </a-collapse-panel>
+      </a-collapse>
+      <Empty
+        description="Bunday turgagi mahsulotlar hozircha mavjud emas!"
+        v-if="!ordersStore.filter(route.query.type).length"
+        class="empty"
       />
+
+      <div class="filter-status">
+        <filter-tag title="Barchasi" @onClick="filterByStatus" />
+        <filter-tag
+          v-for="item in ordersStore.statuses"
+          :key="item.status"
+          :title="item.title"
+          :type="item.status"
+          @onClick="filterByStatus(item.status)"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/variables";
+.wrapper {
+  width: 100%;
+}
+.collapses {
+  width: 100%;
+}
+
+.empty {
+  width: 100%;
+}
 
 .orders {
   flex-direction: column-reverse;
@@ -76,7 +87,7 @@ onMounted(() => {
     overflow: hidden;
     gap: 1rem;
     flex-direction: column;
-    width: max-content;
+    width: calc(100% - 2rem);
     border-radius: 8px;
     margin: 1rem;
   }

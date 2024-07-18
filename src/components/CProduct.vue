@@ -1,6 +1,7 @@
 <script setup>
 import useCartsStore from "@/store/carts";
 import { defineProps } from "vue";
+import baseUrl from "@/utils/api/url";
 const cartsStore = useCartsStore();
 const props = defineProps({
   product: {
@@ -26,7 +27,7 @@ const props = defineProps({
 <template>
   <div class="product">
     <div class="image">
-      <img :src="'http://localhost:5003/' + props.product.imgUrl" alt="Image" />
+      <img :src="baseUrl + props.product.imgUrl" alt="Image" />
       <div class="overlay">
         <button @click="cartsStore.addCart(props.product._id, 1)" class="btn">
           Add to cart

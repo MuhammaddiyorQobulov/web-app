@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import api from "@/utils/api/api";
 const useCartsStore = defineStore("CartsStore", {
   state: () => ({
-    carts: [],
+    carts: null,
     total: 0,
     comment: "",
     userId: null,

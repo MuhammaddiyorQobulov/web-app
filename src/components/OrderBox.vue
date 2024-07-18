@@ -1,13 +1,10 @@
 <script setup>
 import { defineProps} from "vue";
 import moment from "moment";
+import baseUrl from "@/utils/api/url";
 
 const props = defineProps({
   product: {
-    _id: {
-      type: String,
-      required: true,
-    },
     imgUrl: {
       type: String,
       default:
@@ -34,7 +31,7 @@ const props = defineProps({
   <div class="order-box">
     <div class="infos">
       <div class="img">
-        <img :src="'http://localhost:5003/' + props.product.imgUrl" alt="" />
+        <img :src="baseUrl + props.product.imgUrl" alt="" />
         <p class="bold-4">{{ props.product.title }}</p>
       </div>
       <div class="description">

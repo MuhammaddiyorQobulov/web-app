@@ -6,6 +6,7 @@ import { DownOutlined } from "@ant-design/icons-vue";
 import useAuthStore from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
 import useProductsData from "@/store/products";
+import baseUrl from "@/utils/api/url";
 
 const authStore = useAuthStore();
 const productsStore = useProductsData();
@@ -27,7 +28,7 @@ const router = useRouter();
           <img
             class="img"
             v-if="authStore.user.avatar"
-            :src="'http://localhost:5003/' + authStore.user.avatar"
+            :src="baseUrl + authStore.user.avatar"
             alt=""
           />
           <user-icon v-else />

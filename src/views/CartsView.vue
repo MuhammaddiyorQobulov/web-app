@@ -1,7 +1,7 @@
 <script setup>
 import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 const cartsStore = useCartsStore();
 onMounted(() => {
@@ -21,12 +21,15 @@ const toggleModal = (arg) => {
 const order = () => {
   try {
     cartsStore.createOrder(data);
+    data.comment = "";
+    data.address = "";
+    data.phone = "";
+    location.pathname = "/orders";
   } catch (err) {
     console.log(err.message);
   } finally {
     toggleModal(false);
   }
-  location.pathname = "/orders";
 };
 </script>
 <template>

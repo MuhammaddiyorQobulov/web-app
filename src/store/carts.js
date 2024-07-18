@@ -13,6 +13,8 @@ const useCartsStore = defineStore("CartsStore", {
     async createOrder(data) {
       try {
         await api.post("/orders", data);
+        this.carts = null;
+        this.total = 0;
         this.error = null;
       } catch (err) {
         console.error(err.message);

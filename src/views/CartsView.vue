@@ -1,7 +1,7 @@
 <script setup>
 import CartItem from "@/components/CartItem.vue";
 import useCartsStore from "@/store/carts";
-import { onMounted, onUnmounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 const cartsStore = useCartsStore();
 onMounted(() => {

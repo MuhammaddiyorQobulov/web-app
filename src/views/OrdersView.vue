@@ -81,6 +81,7 @@ onMounted(() => {
   flex-direction: column-reverse;
   align-items: start;
   padding: 1rem 0 2rem 0;
+  max-width: calc(100% - 20vw);
   .order {
     border: 1px solid $grey;
     display: flex;
@@ -129,10 +130,10 @@ onMounted(() => {
     }
   }
   .filter-status {
-    max-width: 100%;
-    overflow: scroll;
     display: flex;
+    max-width: 100%;
     gap: 1rem;
+    overflow: scroll;
     padding-bottom: 1rem;
     margin: 1rem 0;
   }

@@ -9,8 +9,19 @@ onMounted(() => {
 });
 </script>
 <template>
-  <header-component class="container" />
-  <router-view />
-  <c-footer />
+  <div class="home">
+    <header-component class="container" />
+    <router-view />
+    <c-footer  class="footer"/>
+  </div>
 </template>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.home {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  .footer{
+    margin-top: auto;
+  }
+}
+</style>

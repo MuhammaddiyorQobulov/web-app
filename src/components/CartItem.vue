@@ -31,7 +31,7 @@ const item = cartsStore.getOneCart(props.productId);
       :xxl="6"
       class="content flex"
     >
-      <h2 class="title bold-4">{{ item.name }}</h2>
+      <h2 class="title bold-4">{{ item.title }}</h2>
 
       <div class="flex">
         <div class="amount">{{ item.quantity }}</div>

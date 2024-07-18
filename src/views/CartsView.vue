@@ -26,19 +26,18 @@ const order = () => {
   } finally {
     toggleModal(false);
   }
-  location.pathname='/orders';
+  location.pathname = "/orders";
 };
 </script>
 <template>
   <div class="carts container">
     <div class="wrapper">
       <h1>Korzinka</h1>
-      <div class="items" v-if="cartsStore.carts">
+      <div class="items" v-if="cartsStore.carts && cartsStore.carts.length">
         <div v-for="i in cartsStore.carts" :key="i">
           <cart-item :productId="i._id" />
         </div>
       </div>
-
       <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
       <div class="total flex">
         <p class="bold-4 total-title">Umumiy summa:</p>

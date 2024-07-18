@@ -8,6 +8,8 @@ import OrdersView from "@/views/OrdersView.vue";
 import AdminPanel from "@/views/AdminView/AdminPanel.vue";
 import AdminOrders from "@/views/AdminView/AdminOrders.vue";
 import NotFound from "@/views/404View.vue";
+import AdminProducts from "@/views/AdminView/AdminProducts.vue";
+// import AdminUsers from "@/views/AdminView/AdminUsers.vue";
 
 const routes = [
   {
@@ -44,7 +46,7 @@ const routes = [
       {
         path: "products",
         name: "admin-products",
-        component: AdminOrders,
+        component: AdminProducts,
       },
       {
         path: "users",

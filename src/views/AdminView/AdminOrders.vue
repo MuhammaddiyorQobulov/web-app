@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, onUpdated, reactive, ref } from "vue";
 import useOrdersStore from "@/store/order.js";
 import CTable from "./components/CTable.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
@@ -7,18 +7,47 @@ import OrderBox from "@/components/OrderBox.vue";
 import { OrdersColumn } from "./components/columns";
 import { Empty } from "ant-design-vue";
 import { HandleColor } from "./components/columns";
+import { useRoute, useRouter } from "vue-router";
+
 const ordersStore = useOrdersStore();
 const isModal = ref(false);
-const order = reactive(null);
+const order = reactive({});
+const router = useRouter();
+const route = useRoute();
 onMounted(() => {
   ordersStore.getAllOrders();
   ordersStore.getStatuses();
 });
+onUpdated(() => {
+  console.log(route.query.status);
+});
+
+const filterByStatus = (value) => {
+  if (!value.key) return router.replace({ query: {} });
+  router.push({ query: { status: value.key } });
+};
 </script>
 
 <template>
   <div>
     <h1>Orders</h1>
+    <a-select
+      v-model:value="route.query.status"
+      label-in-value
+      style="width: 120px"
+      :options="[
+        {
+          value: undefined,
+          label: 'Hammasi',
+        },
+        ...ordersStore.statuses.map((s, idx) => ({
+          value: s.status,
+          label: s.title,
+        })),
+      ]"
+      @change="filterByStatus"
+    >
+    </a-select>
     <c-table
       v-if="ordersStore.orders"
       :data="ordersStore.orders"

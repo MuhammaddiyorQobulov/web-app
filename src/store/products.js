@@ -3,11 +3,14 @@ import api from "@/utils/api/api";
 const useProductsData = defineStore("ProductsStore", {
   state: () => ({
     products: [],
+    product: null,
     searchValue: "",
     error: null,
+    isFetching: false,
   }),
   actions: {
     async getProducts() {
+      this.isFetching = true;
       try {
         const res = await api.get("/products");
         this.products = res.data;
@@ -15,6 +18,20 @@ const useProductsData = defineStore("ProductsStore", {
       } catch (err) {
         console.log(err.message);
         this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
+    async SingleProduct(id) {
+      this.isFetching = true;
+      try {
+        const res = await api.get(`/products/${id}`);
+        this.product = res.data;
+        this.error = null;
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.isFetching = false;
       }
     },
     filterByType(type) {

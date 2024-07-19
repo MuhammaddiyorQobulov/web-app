@@ -185,7 +185,8 @@ onMounted(() => {
       padding: 0 2rem;
       display: flex;
       justify-content: end;
-      box-shadow: 6px 1.5px 4px 4px $shadow-light;
+      // box-shadow: 6px 1.5px 4px 4px $shadow-light;
+      border-bottom: 2px solid $shadow-light;
       height: 70px;
 
       .user {

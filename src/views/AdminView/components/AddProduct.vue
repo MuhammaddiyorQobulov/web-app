@@ -16,7 +16,7 @@ const product = {
   type: "",
 };
 
-const EditSubmit = () => {
+const AddSubmit = () => {
   if (
     !product.title ||
     !product.price ||
@@ -36,9 +36,9 @@ const EditSubmit = () => {
 </script>
 
 <template>
-  <div class="modal-edit">
-    <h1>Edit</h1>
-    <form action="" @submit.prevent="EditSubmit">
+  <div class="modal-form">
+    <h1>Add</h1>
+    <form action="" @submit.prevent="AddSubmit">
       <a-row :gutter="[16, 32]">
         <a-col :span="12">
           <div class="input-group">

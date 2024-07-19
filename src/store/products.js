@@ -22,7 +22,7 @@ const useProductsData = defineStore("ProductsStore", {
         this.isFetching = false;
       }
     },
-    async SingleProduct(id) {
+    async getProduct(id) {
       this.isFetching = true;
       try {
         const res = await api.get(`/products/${id}`);
@@ -42,6 +42,30 @@ const useProductsData = defineStore("ProductsStore", {
           },
         });
         this.products.push(res.data);
+        this.error = null;
+      } catch (err) {
+        console.log(err.message);
+        this.error = err.message;
+      }
+    },
+    async editProduct(id, data) {
+      try {
+        await api.put(
+          `/products/${id}`,
+          {
+            title: data.title,
+            type: data.type,
+            price: data.price,
+            description: data.description,
+            picture: data.picture,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.getProducts();
         this.error = null;
       } catch (err) {
         console.log(err.message);

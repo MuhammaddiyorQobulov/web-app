@@ -37,7 +37,7 @@ const DeleteSubmmit = () => {
           ProductsColumn(
             (id) => {
               isEdit = true;
-              productsStore.SingleProduct(id);
+              productId = id;
             },
             (id) => {
               isDelete = true;
@@ -65,7 +65,7 @@ const DeleteSubmmit = () => {
       />
     </modal-component>
     <modal-component
-      v-if="isEdit && productsStore.product"
+      v-if="isEdit"
       @closeModal="
         () => {
           isEdit = false;
@@ -73,7 +73,7 @@ const DeleteSubmmit = () => {
       "
     >
       <edit-product
-        :data="productsStore.product"
+        :id="productId"
         @onClick="
           () => {
             isEdit = false;
@@ -105,7 +105,7 @@ const DeleteSubmmit = () => {
   display: flex;
   flex-direction: column;
 
-  .modal-edit {
+  .modal-form {
     width: 500px;
 
     .avatar {

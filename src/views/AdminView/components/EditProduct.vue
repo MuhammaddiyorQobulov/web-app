@@ -1,43 +1,50 @@
 <script setup>
+import useProductsData from "@/store/products";
 import useTypeStore from "@/store/type";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 const typeStore = useTypeStore();
+const productsStore = useProductsData();
 const { defineEmits, defineProps } = "vue";
 
-defineProps({
-  data: Object,
+const props = defineProps({
+  id: { type: String, required: true },
+});
+onMounted(() => {
+  productsStore.getProduct(props.id);
 });
 const imgRef = ref(null);
-const product = {
-  title: "",
-  price: "",
-  description: "",
-  type: "",
-};
 
 const emits = defineEmits(["onClick"]);
 const EditSubmit = () => {
+  productsStore.editProduct(props.id, {
+    ...productsStore.product,
+    picture: imgRef.value.files[0],
+  });
   emits("onClick");
-  console.log(product);
 };
 </script>
 
 <template>
-  <div class="modal-edit">
+  <div class="modal-form" v-if="productsStore.product">
     <h1>Edit</h1>
     <form action="" @submit.prevent="EditSubmit">
       <a-row :gutter="[16, 32]">
         <a-col :span="12">
           <div class="input-group">
             <label for="name">Name</label>
-            <input v-model="product.title" type="text" name="name" id="name" />
+            <input
+              v-model="productsStore.product.title"
+              type="text"
+              name="name"
+              id="name"
+            />
           </div>
         </a-col>
         <a-col :span="12">
           <div class="input-group">
             <label for="price">Price</label>
             <input
-              v-model="product.price"
+              v-model="productsStore.product.price"
               type="text"
               name="price"
               id="price"
@@ -48,7 +55,7 @@ const EditSubmit = () => {
           <div class="input-group">
             <label for="description">Description</label>
             <textarea
-              v-model="product.description"
+              v-model="productsStore.product.description"
               type="text"
               name="description"
               id="description"
@@ -59,7 +66,7 @@ const EditSubmit = () => {
         <a-col :span="12">
           <div class="input-group">
             <label for="type"> Type</label>
-            <select v-model="product.type" name="type" id="type">
+            <select v-model="productsStore.product.type" name="type" id="type">
               <option
                 v-for="t in typeStore.types"
                 :key="t.type"
@@ -80,6 +87,7 @@ const EditSubmit = () => {
       <button type="submit">Save</button>
     </form>
   </div>
+  <div v-else>Loading...</div>
 </template>
 
 <style></style>

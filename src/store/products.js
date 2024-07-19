@@ -34,6 +34,20 @@ const useProductsData = defineStore("ProductsStore", {
         this.isFetching = false;
       }
     },
+    async createProduct(data) {
+      try {
+        const res = await api.post("/products", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        this.products.push(res.data);
+        this.error = null;
+      } catch (err) {
+        console.log(err.message);
+        this.error = err.message;
+      }
+    },
     filterByType(type) {
       if (!type)
         return this.products.filter((p) =>

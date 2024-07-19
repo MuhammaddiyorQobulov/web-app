@@ -4,6 +4,8 @@ import baseUrl from "@/utils/api/url";
 import { EditIcon } from "@/assets/icons/edit";
 import { DeleteIcon } from "@/assets/icons/delete";
 import moment from "moment";
+import { EyeIcon } from "@/assets/icons/eye";
+import { HandleColor } from "./columns";
 const props = defineProps({
   columns: {
     type: Array,
@@ -45,10 +47,26 @@ const props = defineProps({
           {{ record.title }}
         </a>
       </template>
-      <template v-else-if="column.key === 'type'">
+      <template v-if="column.key === 'title'">
+        <a>
+          {{ record.title }}
+        </a>
+      </template>
+
+      <template v-if="column.key === 'index'">
+        <a> {{ record._id.substring(record._id.length - 4) }} </a>
+      </template>
+      <template v-else-if="column.dataIndex === 'type'">
         <span>
-          <a-tag :key="record.name" color="green" v-if="props.tagsType.length">
-            {{ props.tagsType.find((t) => t.type === record.type).title }}
+          <a-tag
+            :key="record.name"
+            :color="HandleColor(record[column.key])"
+            v-if="props.tagsType.length"
+          >
+            {{
+              props.tagsType.find((t) => t[column.key] === record[column.key])
+                .title
+            }}
           </a-tag>
         </span>
       </template>
@@ -63,6 +81,12 @@ const props = defineProps({
           <a @click="column.edit.function(record._id)"><edit-icon /></a>
           <a-divider type="vertical" />
           <a @click="column.delete.function(record._id)"><delete-icon /></a>
+        </span>
+      </template>
+
+      <template v-else-if="column.key === 'view'">
+        <span class="actions">
+          <a @click="column.edit.function(record._id)"><eye-icon /></a>
         </span>
       </template>
     </template>

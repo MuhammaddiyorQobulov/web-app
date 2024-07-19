@@ -2,6 +2,7 @@
 import { reactive, ref } from "vue";
 import useAuthStore from "@/store/auth";
 import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
 const authStore = useAuthStore();
 const authData = reactive({
   username: null,
@@ -12,6 +13,10 @@ const authData = reactive({
 const imgRef = ref(null);
 const router = useRouter();
 const handleRegistration = async () => {
+  if (!imgRef.value.files[0]) {
+    message.error("Rasm tanlang!");
+    return;
+  }
   await authStore.RegistrationUser({
     ...authData,
     avatar: imgRef.value.files[0],

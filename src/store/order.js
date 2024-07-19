@@ -6,10 +6,12 @@ const useOrderStore = defineStore("OrderStore", {
     orders: null,
     statuses: [],
     error: null,
+    isFetching: false,
   }),
 
   actions: {
     async getUserOrders() {
+      this.isFetching = true;
       try {
         const res = await api.get("/orders/user-orders");
         this.orders = res.data;
@@ -17,14 +19,19 @@ const useOrderStore = defineStore("OrderStore", {
       } catch (err) {
         console.error(err.message);
         this.error = err.message;
+      } finally {
+        this.isFetching = false;
       }
     },
     async getStatuses() {
+      this.isFetching = true;
       try {
         const res = await api.get("/orders/status");
         this.statuses = res.data;
       } catch (err) {
         console.log(err.message);
+      } finally {
+        this.isFetching = false;
       }
     },
     filter(status) {
@@ -36,6 +43,20 @@ const useOrderStore = defineStore("OrderStore", {
         this.statuses.length &&
         this.statuses.find((s) => s.status === status).title
       );
+    },
+
+    async getAllOrders() {
+      this.isFetching = true;
+      try {
+        const res = await api.get("/orders");
+        this.orders = res.data;
+        this.error = null;
+      } catch (err) {
+        console.error(err.message);
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
     },
   },
 });

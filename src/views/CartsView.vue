@@ -4,6 +4,7 @@ import useCartsStore from "@/store/carts";
 import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import { useRouter } from "vue-router";
+import { Empty } from "ant-design-vue";
 const router = useRouter();
 const cartsStore = useCartsStore();
 onMounted(() => {
@@ -40,7 +41,10 @@ const order = async () => {
           <cart-item :productId="i._id" />
         </div>
       </div>
-      <h2 class="empty" v-else>Tanlangan mahsulotlar mavjud emas</h2>
+      <div v-else>
+        <Empty description="Tanlangan mahsulotlar mavjud emas" />
+      </div>
+
       <div class="total flex">
         <p class="bold-4 total-title">Umumiy summa:</p>
         <h2 class="bold-4 total-cost">{{ cartsStore.total }} so'm</h2>
@@ -111,15 +115,7 @@ const order = async () => {
       gap: 1rem;
       margin-top: 1rem;
     }
-    .empty {
-      text-align: center;
-      border: 1px solid $btn-danger;
-      background: rgba($btn-danger, 0.2);
-      color: $btn-danger;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-top: 3rem;
-    }
+
     .input-group {
       margin-top: 1rem;
       flex-direction: column;

@@ -42,51 +42,51 @@ export const ProductsColumn = (funcEdit, funcDelete) => [
     },
   },
 ];
-export const column = [
+export const OrdersColumn = [
   {
-    title: "Rasm",
-    dataIndex: "imgUrl",
-    key: "imgUrl",
+    title: "Check raqami",
+    dataIndex: "index",
+    key: "index",
   },
   {
-    name: "Nomi",
-    dataIndex: "title",
-    key: "title",
+    title: "Mijoz ID",
+    dataIndex: "userId",
+    key: "userId",
   },
   {
-    title: "Tavsifi",
-    dataIndex: "description",
-    key: "description",
+    title: "Telefon raqami",
+    dataIndex: "phone",
+    key: "phone",
+  },
+
+  {
+    title: "Izoh",
+    dataIndex: "comment",
+    key: "comment",
   },
   {
-    title: "Narxi",
-    key: "price",
-    dataIndex: "price",
-  },
-  {
-    title: "Turi",
-    dataIndex: "type",
-    key: "type",
-  },
-  {
-    title: "Yaratilgan sanasi",
+    title: "Buyurtma vaqti",
     dataIndex: "date",
     key: "date",
   },
   {
-    title: "Amallar",
-    key: "action",
-    edit: {
-      title: "Tahrirlash",
-      function: () => {
-        console.log("edit");
-      },
-    },
-    delete: {
-      title: "O'chirish",
-      function: () => {
-        console.log("delete");
-      },
-    },
+    title: "Umumiy narxi",
+    key: "totla",
+    dataIndex: "total",
+  },
+  {
+    title: "Status",
+    key: "status",
+    dataIndex: "type",
   },
 ];
+
+export const HandleColor = (value) => {
+  if (value == "NEW") return "blue";
+  if (value == "DELIVERING") return "orange";
+  if (value == "DELIVERED") return "green";
+  if (value == "CANCELED") return "red";
+  if (value == "RETURNED") return "pink";
+  if (value == "IN_PROCESS") return "cyan";
+  return "green";
+};

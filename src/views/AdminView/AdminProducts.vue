@@ -7,6 +7,7 @@ import { ProductsColumn } from "./components/columns";
 import ModalComponent from "@/components/ModalComponent.vue";
 import AddProduct from "./components/AddProduct.vue";
 import EditProduct from "./components/EditProduct.vue";
+import { PlusIcon } from "@/assets/icons/plus";
 onMounted(() => {
   productsStore.getProducts();
   typeStore.getTypes();
@@ -26,8 +27,13 @@ const DeleteSubmmit = () => {
 </script>
 <template>
   <div class="wrapper">
-    <p>Products</p>
-    <button @click="isAdd = true">Add</button>
+    <div class="top">
+      <h1>Products</h1>
+      <div class="create-btn" @click="isAdd = true">
+        <button class="btn">Add</button>
+        <plus-icon />
+      </div>
+    </div>
     <div class="products">
       <c-table
         :data="productsStore.products"
@@ -106,7 +112,39 @@ const DeleteSubmmit = () => {
   width: 100%;
   display: flex;
   flex-direction: column;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .create-btn {
+    display: flex;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    gap: 1rem;
+    align-items: center;
+    color: $black;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    border: 4px dashed $primary;
+    width: max-content;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    user-select: none;
+    .btn {
+      font-size: 18px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
 
+    &:active {
+      transform: scale(0.95);
+    }
+    &:hover {
+      border-color: $btn-success;
+    }
+  }
   .modal-form {
     width: 500px;
 

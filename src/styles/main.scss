@@ -44,6 +44,14 @@
 .muted {
   color: $grey;
 }
+.btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
 
 .input-group {
   display: flex;

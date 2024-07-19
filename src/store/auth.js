@@ -6,7 +6,7 @@ const useAuthStore = defineStore("AuthStore", {
     user: {
       username: null,
       avatar: null,
-      role: [],
+      roles: [],
       id: null,
     },
     token: localStorage.getItem("token") || null,

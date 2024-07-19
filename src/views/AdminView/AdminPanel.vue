@@ -1,7 +1,7 @@
 <script setup>
 import { LogoIcon } from "@/assets/icons/logo";
 import useAuthStore from "@/store/auth";
-import { onMounted } from "vue";
+import { onBeforeMount } from "vue";
 import { OrdersIcon } from "@/assets/icons/orders";
 import { DownOutlined } from "@ant-design/icons-vue";
 import { TickIcon } from "@/assets/icons/tick";
@@ -14,8 +14,11 @@ import baseUrl from "@/utils/api/url";
 const router = useRouter();
 const authStore = useAuthStore();
 const route = useRoute();
-onMounted(() => {
-  authStore.GetUser();
+onBeforeMount(async () => {
+  await authStore.GetUser();
+  if (!authStore.isAdmin) {
+    router.push("/");
+  }
 });
 </script>
 <template>

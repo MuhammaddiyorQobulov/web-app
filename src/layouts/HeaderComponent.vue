@@ -52,7 +52,7 @@ const router = useRouter();
 
           <router-link
             v-if="route.path != '/admin' && authStore.isAdmin"
-            to="/admin"
+            to="/admin/products"
           >
             <a-menu-item key="5">Admin Paneli</a-menu-item>
           </router-link>

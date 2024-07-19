@@ -84,10 +84,24 @@ const EditSubmit = () => {
           </div>
         </a-col>
       </a-row>
-      <button type="submit">Save</button>
+      <div class="btn-submit">
+        <button class="btn success" type="submit">Save</button>
+      </div>
     </form>
   </div>
   <div v-else>Loading...</div>
 </template>
 
-<style></style>
+<style scoped lang="scss">
+.btn-submit {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-top: 1rem;
+  .btn {
+    width: max-content;
+    padding: 0.5rem 1.5rem !important;
+    font-size: 20px;
+  }
+}
+</style>

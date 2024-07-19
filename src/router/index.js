@@ -10,7 +10,6 @@ import AdminOrders from "@/views/AdminView/AdminOrders.vue";
 import NotFound from "@/views/404View.vue";
 import AdminProducts from "@/views/AdminView/AdminProducts.vue";
 // import AdminUsers from "@/views/AdminView/AdminUsers.vue";
-
 const routes = [
   {
     path: "/login",

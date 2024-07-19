@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/utils/api/api";
+import { message } from "ant-design-vue";
 const useProductsData = defineStore("ProductsStore", {
   state: () => ({
     products: [],
@@ -42,6 +43,7 @@ const useProductsData = defineStore("ProductsStore", {
           },
         });
         this.products.push(res.data);
+        message.success("Yangi mahsulot yaratildi");
         this.error = null;
       } catch (err) {
         console.log(err.message);
@@ -66,6 +68,18 @@ const useProductsData = defineStore("ProductsStore", {
           }
         );
         this.getProducts();
+        message.success("Mahsulot ma'lumotlari o'zgartirildi");
+        this.error = null;
+      } catch (err) {
+        console.log(err.message);
+        this.error = err.message;
+      }
+    },
+    async deleteProduct(id) {
+      try {
+        await api.delete(`/products/${id}`);
+        this.getProducts();
+        message.success("Mahsulot o'chirildi");
         this.error = null;
       } catch (err) {
         console.log(err.message);

@@ -20,7 +20,7 @@ const isAdd = ref(false);
 const productId = ref(null);
 
 const DeleteSubmmit = () => {
-  console.log(productId.value);
+  productsStore.deleteProduct(productId.value);
   isDelete.value = false;
 };
 </script>
@@ -89,10 +89,12 @@ const DeleteSubmmit = () => {
         }
       "
     >
-      <div class="modal-edit">
-        <form action="" @submit.prevent="DeleteSubmmit">
-          <button type="submit">Delete</button>
-        </form>
+      <p class="bold-4">Mahsulotni o'chirishni istaysizmi!</p>
+      <div class="modal-delete">
+        <button class="btn warning" @click="() => (isDelete = false)">
+          Cancel
+        </button>
+        <button class="btn danger" @click="DeleteSubmmit">Delete</button>
       </div>
     </modal-component>
   </div>
@@ -120,6 +122,22 @@ const DeleteSubmmit = () => {
       .upload-list-inline >>> .ant-upload-animate-leave {
         animation-name: uploadAnimateInlineOut;
       }
+    }
+  }
+  .modal-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    .btn {
+      padding: 5px 10px;
+      background-color: $primary;
+      color: $black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   }
 }

@@ -8,6 +8,7 @@ const authData = reactive({
   username: null,
   password: null,
   confirm: null,
+  phone: null,
 });
 
 const imgRef = ref(null);
@@ -40,6 +41,10 @@ const handleRegistration = async () => {
             name="username"
             id="username"
           />
+        </div>
+        <div class="input-group phone">
+          <label for="phone">Phone</label>
+          <input v-model="authData.phone" type="tel" name="phone" id="phone" />
         </div>
         <div class="input-group password">
           <label for="password">Password</label>

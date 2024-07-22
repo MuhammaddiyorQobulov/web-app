@@ -8,6 +8,7 @@ import useTypeStore from "@/store/type";
 import FilterTag from "@/components/FilterTag.vue";
 import { useRouter, useRoute } from "vue-router";
 import { Empty } from "ant-design-vue";
+import MainSearch from "@/components/MainSearch.vue";
 
 const productsStore = useProductsData();
 const cartsStore = useCartsStore();
@@ -27,6 +28,9 @@ const filterByType = (type) => {
   <div class="home">
     <div class="main-image">
       <img src="@/assets/images/main-bg.png" alt="" />
+    </div>
+    <div class="search-bar container flex" v-if="route.path == '/'">
+      <main-search @onChange="(a) => (productsStore.searchValue = a)" />
     </div>
     <div class="filters container">
       <filter-tag title="Hammasi" @onClick="filterByType" />

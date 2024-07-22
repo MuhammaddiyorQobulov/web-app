@@ -1,15 +1,12 @@
 <script setup>
 import { LogoIcon } from "@/assets/icons/logo";
 import { UserIcon } from "@/assets/icons/user";
-import MainSearch from "@/components/MainSearch.vue";
 import { DownOutlined } from "@ant-design/icons-vue";
 import useAuthStore from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
-import useProductsData from "@/store/products";
 import baseUrl from "@/utils/api/url";
 
 const authStore = useAuthStore();
-const productsStore = useProductsData();
 const route = useRoute();
 const router = useRouter();
 </script>
@@ -18,9 +15,6 @@ const router = useRouter();
     <router-link to="/">
       <LogoIcon />
     </router-link>
-    <div class="search-bar" v-if="route.path == '/'">
-      <main-search @onChange="(a) => (productsStore.searchValue = a)" />
-    </div>
 
     <a-dropdown v-if="authStore.token">
       <a class="ant-dropdown-link user" @click.prevent>
@@ -88,9 +82,7 @@ const router = useRouter();
   box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
   z-index: 10;
 
-  .search-bar {
-    width: 500px;
-  }
+  
   .user {
     display: flex;
     align-items: center;

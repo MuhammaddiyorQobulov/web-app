@@ -33,7 +33,7 @@ const model = ref("");
 @import "@/styles/variables.scss";
 
 form {
-  width: 100%;
+  width: 400px;
   display: flex;
   align-items: center;
   gap: 10px;

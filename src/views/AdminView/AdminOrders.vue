@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUpdated, reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import useOrdersStore from "@/store/order.js";
 import CTable from "./components/CTable.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
@@ -17,14 +17,12 @@ const route = useRoute();
 onMounted(() => {
   ordersStore.getAllOrders();
   ordersStore.getStatuses();
-});
-onUpdated(() => {
-  console.log(route.query.status);
+  if (!route.query.status) return router.push({ query: { status: "all" } });
 });
 
 const filterByStatus = (value) => {
-  if (!value.key) return router.replace({ query: {} });
   router.push({ query: { status: value.key } });
+  ordersStore.filterBystatus(value.key);
 };
 </script>
 
@@ -37,7 +35,7 @@ const filterByStatus = (value) => {
       style="width: 120px"
       :options="[
         {
-          value: undefined,
+          value: 'all',
           label: 'Hammasi',
         },
         ...ordersStore.statuses.map((s, idx) => ({
@@ -49,8 +47,8 @@ const filterByStatus = (value) => {
     >
     </a-select>
     <c-table
-      v-if="ordersStore.orders"
-      :data="ordersStore.orders"
+      v-if="ordersStore.filterBystatus(route.query.status)"
+      :data="ordersStore.filterBystatus(route.query.status)"
       :tagsType="ordersStore.statuses"
       :columns="[
         ...OrdersColumn,
@@ -61,7 +59,9 @@ const filterByStatus = (value) => {
             title: 'eye-icon',
             function: (id) => {
               isModal = true;
-              order = ordersStore.orders.find((o) => o._id === id);
+              order = ordersStore
+                .filterBystatus(route.query.status)
+                .find((o) => o._id === id);
               console.log(order);
             },
           },

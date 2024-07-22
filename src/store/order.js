@@ -3,13 +3,17 @@ import { defineStore } from "pinia";
 
 const useOrderStore = defineStore("OrderStore", {
   state: () => ({
-    orders: null,
+    orders: [],
     statuses: [],
     error: null,
     isFetching: false,
   }),
 
   actions: {
+    filterBystatus(status) {
+      if (status == "all") return this.orders;
+      return this.orders.filter((o) => o.status === status);
+    },
     async getUserOrders() {
       this.isFetching = true;
       try {

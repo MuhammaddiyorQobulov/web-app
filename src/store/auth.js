@@ -9,8 +9,11 @@ const useAuthStore = defineStore("AuthStore", {
       roles: [],
       id: null,
     },
+    users: [],
     token: localStorage.getItem("token") || null,
     isAdmin: false,
+    isFetching: false,
+    editingUser: null,
     error: null,
   }),
 
@@ -43,7 +46,7 @@ const useAuthStore = defineStore("AuthStore", {
         // message.error("Iltimos, qaytadan kiriting");
       }
     },
-    async GetUser() {
+    async CurrentUser() {
       try {
         const { data } = await api.get("/auth/user");
         this.user = {
@@ -58,7 +61,56 @@ const useAuthStore = defineStore("AuthStore", {
         this.error = err.message;
       }
     },
-
+    async GetUsers() {
+      this.isFetching = true;
+      try {
+        const { data } = await api.get("/auth/users");
+        this.users = data;
+        this.error = null;
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
+    async getOneUser(id) {
+      this.isFetching = true;
+      try {
+        const { data } = await api.get(`/auth/users/${id}`);
+        this.error = null;
+        this.editingUser = data;
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
+    async EditUser(id) {
+      this.isFetching = true;
+      try {
+        await api.put(`/auth/users/${id}`, { roles: this.editingUser.roles });
+        this.GetUsers();
+        message.success("Foydalanuvchi o'zgartirildi");
+        this.error = null;
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
+    async DeleteUser(id) {
+      this.isFetching = true;
+      try {
+        await api.delete(`/auth/users/${id}`);
+        this.GetUsers();
+        message.success("Foydalanuvchi o'chirildi");
+        this.error = null;
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
     LogOut() {
       this.token = null;
       this.user = {

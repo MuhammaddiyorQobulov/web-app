@@ -15,7 +15,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 const route = useRoute();
 onBeforeMount(async () => {
-  await authStore.GetUser();
+  await authStore.CurrentUser();
   if (!authStore.isAdmin) {
     router.push("/");
   }

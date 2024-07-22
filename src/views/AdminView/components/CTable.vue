@@ -42,6 +42,11 @@ const props = defineProps({
           <img :src="baseUrl + record.imgUrl" alt="Image" />
         </div>
       </template>
+      <template v-if="column.key === 'avatar'">
+        <div class="avatar flex">
+          <img :src="baseUrl + record.avatar" alt="Image" />
+        </div>
+      </template>
       <template v-if="column.key === 'title'">
         <a>
           {{ record.title }}
@@ -57,18 +62,25 @@ const props = defineProps({
         <a> {{ record._id.substring(record._id.length - 4) }} </a>
       </template>
       <template v-else-if="column.dataIndex === 'type'">
-        <span>
-          <a-tag
-            :key="record.name"
-            :color="HandleColor(record[column.key])"
-            v-if="props.tagsType.length"
-          >
-            {{
-              props.tagsType.find((t) => t[column.key] === record[column.key])
-                .title
-            }}
-          </a-tag>
-        </span>
+        <a-tag
+          :key="record.name"
+          :color="HandleColor(record[column.key])"
+          v-if="props.tagsType.length"
+        >
+          {{
+            props.tagsType.find((t) => t[column.key] === record[column.key])
+              .title
+          }}
+        </a-tag>
+      </template>
+      <template v-else-if="column.dataIndex === 'roles'">
+        <a-tag
+          v-for="role in record.roles"
+          :key="role"
+          :color="HandleColor(role)"
+        >
+          {{ role }}
+        </a-tag>
       </template>
 
       <template v-else-if="column.key === 'date'">
@@ -99,6 +111,15 @@ const props = defineProps({
   overflow: hidden;
   width: 100px;
   height: 100px;
+  border: 1px solid $shadow-light;
+  img {
+    max-height: 100%;
+  }
+}
+.avatar {
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
   border: 1px solid $shadow-light;
   img {
     max-height: 100%;

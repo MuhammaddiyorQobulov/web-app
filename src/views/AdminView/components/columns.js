@@ -82,11 +82,41 @@ export const OrdersColumn = [
 ];
 
 export const HandleColor = (value) => {
-  if (value == "NEW") return "blue";
+  if (value == "NEW" || value == "USER") return "blue";
   if (value == "DELIVERING") return "orange";
-  if (value == "DELIVERED") return "green";
-  if (value == "CANCELED") return "red";
+  if (value == "DELIVERED" || value == "DELIVER") return "green";
+  if (value == "CANCELED" || value == "ADMIN") return "red";
   if (value == "RETURNED") return "pink";
   if (value == "IN_PROCESS") return "cyan";
   return "green";
 };
+export const UsersColumn = [
+  {
+    title: "Avatarka",
+    dataIndex: "avatar",
+    key: "avatar",
+    width: 80,
+  },
+  {
+    title: "Ismi",
+    dataIndex: "username",
+    key: "username",
+  },
+  {
+    title: "Telefon raqami",
+    dataIndex: "phone",
+    key: "phone",
+    width: 200,
+  },
+  {
+    title: "Role",
+    dataIndex: "roles",
+    key: "roles",
+  },
+  {
+    title: "Yaratilgan vaqti",
+    dataIndex: "date",
+    key: "date",
+    width: 200,
+  },
+];

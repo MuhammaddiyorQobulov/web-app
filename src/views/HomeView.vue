@@ -5,7 +5,7 @@ import { onMounted } from "vue";
 import useAuthStore from "@/store/auth";
 const authStore = useAuthStore();
 onMounted(() => {
-  authStore.GetUser();
+  authStore.CurrentUser();
 });
 </script>
 <template>

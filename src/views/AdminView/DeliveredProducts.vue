@@ -7,49 +7,22 @@ import OrderBox from "@/components/OrderBox.vue";
 import { OrdersColumn } from "./components/columns";
 import { Empty } from "ant-design-vue";
 import { HandleColor } from "./components/columns";
-import { useRoute, useRouter } from "vue-router";
 
 const ordersStore = useOrdersStore();
 const isModal = ref(false);
 const order = reactive({});
-const router = useRouter();
-const route = useRoute();
 onMounted(() => {
   ordersStore.getAllOrders();
   ordersStore.getStatuses();
-  if (!route.query.status) return router.push({ query: { status: "all" } });
 });
-
-const filterByStatus = (value) => {
-  router.push({ query: { status: value.key } });
-  ordersStore.filterBystatus(value.key);
-};
 </script>
 
 <template>
   <div>
-    <h1>Orders</h1>
-    <a-select
-      v-model:value="route.query.status"
-      label-in-value
-      style="width: 120px"
-      :options="[
-        {
-          value: 'all',
-          label: 'Hammasi',
-        },
-        ...ordersStore.statuses.map((s, idx) => {
-          return {
-            value: s.status,
-            label: s.title,
-          };
-        }),
-      ]"
-      @change="filterByStatus"
-    />
+    <h1>Delivered</h1>
     <c-table
-      v-if="ordersStore.filterBystatus(route.query.status)"
-      :data="ordersStore.filterBystatus(route.query.status)"
+      v-if="ordersStore.filterBystatus('DELIVERED')"
+      :data="ordersStore.filterBystatus('DELIVERED')"
       :tagsType="ordersStore.statuses"
       :columns="[
         ...OrdersColumn,
@@ -61,7 +34,7 @@ const filterByStatus = (value) => {
             function: (id) => {
               isModal = true;
               order = ordersStore
-                .filterBystatus(route.query.status)
+                .filterBystatus('DELIVERED')
                 .find((o) => o._id === id);
               console.log(order);
             },
@@ -71,7 +44,7 @@ const filterByStatus = (value) => {
       :loading="ordersStore.isFetching"
     />
     <div v-else>
-      <Empty description="Orders not found" />
+      <Empty description="Delivered orders not found" />
     </div>
 
     <modal-component @closeModal="isModal = false" v-if="isModal && order">

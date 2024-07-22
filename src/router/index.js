@@ -9,7 +9,9 @@ import AdminPanel from "@/views/AdminView/AdminPanel.vue";
 import AdminOrders from "@/views/AdminView/AdminOrders.vue";
 import NotFound from "@/views/404View.vue";
 import AdminProducts from "@/views/AdminView/AdminProducts.vue";
-// import AdminUsers from "@/views/AdminView/AdminUsers.vue";
+import DeliveredProducts from "@/views/AdminView/DeliveredProducts.vue";
+import AdminUsers from "@/views/AdminView/AdminUsers.vue";
+import AdminStatistics from "@/views/AdminView/AdminStatistics.vue";
 const routes = [
   {
     path: "/login",
@@ -35,12 +37,12 @@ const routes = [
       {
         path: "delivered",
         name: "admin-delivered",
-        component: AdminOrders,
+        component: DeliveredProducts,
       },
       {
         path: "statistics",
         name: "admin-statistics",
-        component: AdminOrders,
+        component: AdminStatistics,
       },
       {
         path: "products",
@@ -50,7 +52,7 @@ const routes = [
       {
         path: "users",
         name: "admin-users",
-        component: AdminOrders,
+        component: AdminUsers,
       },
     ],
   },

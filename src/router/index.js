@@ -15,6 +15,7 @@ import AdminStatistics from "@/views/AdminView/AdminStatistics.vue";
 import DeliverPanel from "@/views/DeliverView/DeliverPanel.vue";
 import NewOrders from "@/views/DeliverView/NewOrders.vue";
 import DeliveredOrders from "@/views/DeliverView/DeliveredOrders.vue";
+import MyOrders from "@/views/DeliverView/MyOrders.vue";
 const routes = [
   {
     path: "/login",
@@ -74,6 +75,11 @@ const routes = [
         path: "delivered-orders",
         name: "delivered-orders",
         component: DeliveredOrders,
+      },
+      {
+        path: "my-orders",
+        name: "my-orders",
+        component: MyOrders,
       },
     ],
   },

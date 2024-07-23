@@ -7,12 +7,14 @@ import OrderBox from "@/components/OrderBox.vue";
 import { OrdersColumn } from "./components/columns";
 import { Empty } from "ant-design-vue";
 import { HandleColor } from "./components/columns";
+import useDeliverStore from "@/store/deliver";
 
+const deliverStore = useDeliverStore();
 const ordersStore = useOrdersStore();
 const isModal = ref(false);
 const order = reactive({});
 onMounted(() => {
-  ordersStore.getAllOrders({ status: "NEW" });
+  deliverStore.getDeliverOrders({ status: "NEW" });
   ordersStore.getStatuses();
 });
 </script>
@@ -22,8 +24,8 @@ onMounted(() => {
     <h1>Orders</h1>
 
     <c-table
-      v-if="ordersStore.orders"
-      :data="ordersStore.orders"
+      v-if="deliverStore.orders"
+      :data="deliverStore.orders"
       :tagsType="ordersStore.statuses"
       :columns="[
         ...OrdersColumn,
@@ -34,7 +36,7 @@ onMounted(() => {
             title: 'eye-icon',
             function: (id) => {
               isModal = true;
-              order = ordersStore.orders.find((o) => o._id === id);
+              order = deliverStore.orders.find((o) => o._id === id);
               console.log(order);
             },
           },
@@ -55,7 +57,12 @@ onMounted(() => {
       </div>
       <order-box v-for="p in order.products" :product="p" :key="p" />
       <div class="get-order" v-if="!order.deliverId && order.status == 'NEW'">
-        <a-button type="primary" @click="ordersStore.deliverOrder(order._id)">
+        <a-button
+          type="primary"
+          @click="
+            deliverStore.updateDeliverOrder(order._id, { status: 'IN_PROCESS' })
+          "
+        >
           Buyurtmani olish
         </a-button>
       </div>

@@ -13,9 +13,14 @@ const ordersStore = useOrdersStore();
 const isModal = ref(false);
 const order = reactive({});
 onMounted(async () => {
-  deliverStore.getDeliverOrders({status:"DELIVERED"});
+  deliverStore.getDeliverOrders();
   ordersStore.getStatuses();
 });
+const finishDelivering = (id, status) => {
+  deliverStore.updateDeliverOrder(id, { status });
+  isModal.value = false;
+  deliverStore.getDeliverOrders();
+};
 </script>
 
 <template>
@@ -35,7 +40,6 @@ onMounted(async () => {
             function: (id) => {
               isModal = true;
               order = deliverStore.orders.find((o) => o._id === id);
-              console.log(order);
             },
           },
         },
@@ -54,6 +58,26 @@ onMounted(async () => {
         </a-tag>
       </div>
       <order-box v-for="p in order.products" :product="p" :key="p" />
+      <div disabled class="actions" v-if="order.status == 'DELIVERING'">
+        <button
+          class="btn success"
+          @click="() => finishDelivering(order._id, 'DELIVERED')"
+        >
+          Yetkazildi
+        </button>
+        <button
+          class="btn danger"
+          @click="() => finishDelivering(order._id, 'CANCELED')"
+        >
+          Bekor qilindi
+        </button>
+        <button
+          class="btn warning"
+          @click="() => finishDelivering(order._id, 'RETURNED')"
+        >
+          Qaytarildi
+        </button>
+      </div>
     </modal-component>
   </div>
 </template>
@@ -64,5 +88,9 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+}
+.actions {
+  display: flex;
+  gap: 1rem;
 }
 </style>

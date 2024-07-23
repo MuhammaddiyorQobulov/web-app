@@ -168,7 +168,6 @@ const order = async () => {
       cursor: pointer;
       &:active {
         background: $btn-info !important;
-        transform: scale(0.95);
       }
     }
   }

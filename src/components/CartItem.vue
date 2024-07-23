@@ -45,13 +45,13 @@ const item = cartsStore.getOneCart(props.productId);
       <button
         @click="cartsStore.addCart(item._id, item.quantity - 1)"
         :disabled="item.quantity <= 1"
-        class="danger"
+        class="btn danger"
       >
         <minus-icon />
       </button>
       <button
         @click="cartsStore.addCart(item._id, item.quantity + 1)"
-        class="success"
+        class="btn success"
       >
         <plus-icon />
       </button>
@@ -119,9 +119,6 @@ const item = cartsStore.getOneCart(props.productId);
       background: transparent;
       border-radius: 4px;
       border: none;
-      &:active {
-        transform: scale(0.9);
-      }
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;

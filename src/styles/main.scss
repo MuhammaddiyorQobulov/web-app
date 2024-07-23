@@ -52,6 +52,9 @@
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .input-group {

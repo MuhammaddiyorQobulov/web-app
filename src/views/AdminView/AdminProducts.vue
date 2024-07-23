@@ -138,9 +138,6 @@ const DeleteSubmmit = () => {
       padding: 0;
     }
 
-    &:active {
-      transform: scale(0.95);
-    }
     &:hover {
       border-color: $btn-success;
     }

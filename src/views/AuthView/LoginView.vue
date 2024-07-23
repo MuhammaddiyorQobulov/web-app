@@ -91,10 +91,6 @@ const handleLogin = async () => {
           cursor: pointer;
           font-weight: 600;
           background: $primary;
-
-          &:active {
-            transform: scale(0.99);
-          }
         }
       }
     }

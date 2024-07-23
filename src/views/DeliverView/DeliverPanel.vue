@@ -30,8 +30,17 @@ onBeforeMount(async () => {
             :class="route.path === '/deliver/new-orders' && 'active'"
           >
             <orders-icon class="icon" />
-            <h3 class="menu-title">Buyurtmalar</h3>
+            <h3 class="menu-title">Yangi buyurtmalar</h3>
             <p class="muted">Kelgan buyurtmalarni kuztish</p>
+          </router-link>
+          <router-link
+            class="link"
+            to="/deliver/my-orders"
+            :class="route.path === '/deliver/my-orders' && 'active'"
+          >
+            <orders-icon class="icon" />
+            <h3 class="menu-title">Jarayondagi buyurtmalar wefwef weferg</h3>
+            <p class="muted">Kuryer olgan barcha jarayondagi buyurtmalari</p>
           </router-link>
           <router-link
             class="link"
@@ -91,7 +100,6 @@ onBeforeMount(async () => {
       .active {
         background: rgba($primary, 0.8);
       }
-
       p {
         white-space: nowrap;
         overflow: hidden;
@@ -102,6 +110,9 @@ onBeforeMount(async () => {
         color: rgba($black, 87%);
         font-weight: 500;
         line-height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

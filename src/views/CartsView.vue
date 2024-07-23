@@ -105,10 +105,11 @@ const order = async () => {
 @import "@/styles/variables.scss";
 .carts {
   display: flex;
-  width: calc(100% - 10vw);
+  width: 90%;
+  justify-content: center;
   .wrapper {
-    width: 100%;
-    padding: 2rem 20rem;
+    width: max-content;
+    padding: 2rem 0;
     .items {
       display: flex;
       flex-direction: column;
@@ -138,6 +139,7 @@ const order = async () => {
     .total {
       justify-content: space-between;
       margin-top: 2rem;
+      gap: 2rem;
       &-cost {
         font-size: 40px;
       }

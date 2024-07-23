@@ -26,10 +26,12 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    message.error(error.response.data.message);
     if (error.response && error.response.status == 401) {
       localStorage.removeItem("token");
+      message.error("Ro'yhatdan o'tmagansiz");
+      return;
     }
+    message.error(error.response.data.message);
     return Promise.reject(error);
   }
 );

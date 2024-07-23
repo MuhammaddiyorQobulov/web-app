@@ -9,7 +9,6 @@ import FilterTag from "@/components/FilterTag.vue";
 import { useRouter, useRoute } from "vue-router";
 import { Empty } from "ant-design-vue";
 import MainSearch from "@/components/MainSearch.vue";
-
 const productsStore = useProductsData();
 const cartsStore = useCartsStore();
 const typeStore = useTypeStore();
@@ -42,6 +41,7 @@ const filterByType = (type) => {
         @onClick="filterByType(item.type)"
       />
     </div>
+
     <div v-for="t in typeStore.types" :key="t._id">
       <div v-if="productsStore.filterByType(route.query.type).length">
         <div

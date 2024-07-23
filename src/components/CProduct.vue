@@ -1,8 +1,11 @@
 <script setup>
 import useCartsStore from "@/store/carts";
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import baseUrl from "@/utils/api/url";
+import ModalComponent from "./ModalComponent.vue";
 const cartsStore = useCartsStore();
+const visible = ref(false);
+
 const props = defineProps({
   product: {
     _id: {
@@ -25,11 +28,14 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="product">
+  <div class="product" @click="visible = true">
     <div class="image">
       <img :src="baseUrl + props.product.imgUrl" alt="Image" />
       <div class="overlay">
-        <button @click="cartsStore.addCart(props.product._id, 1)" class="btn">
+        <button
+          @click="cartsStore.addCart(props.product._id, 1)"
+          class="btn-overlay"
+        >
           Add to cart
         </button>
       </div>
@@ -39,10 +45,10 @@ const props = defineProps({
     <p class="description muted">{{ props.product.description }}</p>
   </div>
 
-  <!-- <modal-component v-if="visible" @closeModal="closeModal">
+  <modal-component v-if="visible" @closeModal="visible = false">
     <div class="modal">
       <div class="modal-image">
-        <img :src="props.product.imgUrl" alt="Image" />
+        <img :src="baseUrl + props.product.imgUrl" alt="Image" />
       </div>
 
       <div class="modal-content">
@@ -51,20 +57,17 @@ const props = defineProps({
         <p class="text-mute">
           Mahsulot narxiga birmarttalik idish narxi qo'shiladi! (1500)
         </p>
-        <div class="quantity">
-          <div class="amount flex">
-            <p class="bold-4">{{ quantity }}tasi</p>
-            <p>{{ props.product.price * quantity }} so'm</p>
-          </div>
-          <div class="flex">
-            <button @click="quantity--" class="btn btn-primary">-</button>
-            <button @click="quantity++" class="btn btn-primary">+</button>
-          </div>
+        <div class="modal-btn">
+          <button
+            @click="cartsStore.addCart(props.product._id, 1)"
+            class="btn warning"
+          >
+            Add to cart
+          </button>
         </div>
-        <button class="btn btn-primary">Add to cart</button>
       </div>
     </div>
-  </modal-component> -->
+  </modal-component>
 </template>
 
 <style scoped lang="scss">
@@ -109,7 +112,7 @@ const props = defineProps({
   .title {
     padding: 1rem 0;
   }
-  .btn {
+  .btn-overlay {
     white-space: nowrap;
     background: $btn-warning;
     font-size: 14px;
@@ -134,36 +137,59 @@ const props = defineProps({
   }
 }
 
-// .modal {
-//   &-image {
-//     width: 400px;
-//     height: 200px;
-//     overflow: hidden;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     img {
-//       width: 100%;
-//     }
-//   }
-//   &-content {
-//     padding: 1rem;
-//     .text-mute {
-//       font-size: 12px;
-//     }
-//     .quantity {
-//       display: flex;
-//       justify-content: space-between;
-//       .amount {
-//         gap: 1rem;
-//       }
-//       button {
-//         padding: 0.4rem 0.8rem;
-//         background: transparent;
-//         border: 1px solid #000;
-//         border-radius: 4px;
-//       }
-//     }
-//   }
-// }
+.modal {
+  &-image {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+    padding: 0 !important;
+    border-radius: 8px;
+    img {
+      position: absolute;
+      display: block;
+      width: 100%;
+    }
+  }
+  &-content {
+    padding: 1rem;
+    .text-mute {
+      font-size: 12px;
+    }
+    .quantity {
+      display: flex;
+      justify-content: space-between;
+      .amount {
+        gap: 1rem;
+      }
+      button {
+        padding: 0.4rem 0.8rem;
+        background: transparent;
+        border: 1px solid #000;
+        border-radius: 4px;
+      }
+    }
+  }
+  &-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    margin-top: 1rem;
+    width: 100%;
+    .btn {
+      padding: 5px 10px;
+      background-color: $primary;
+      color: $black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: $black !important;
+      font-size: 20px;
+      margin-left: auto;
+    }
+  }
+}
 </style>

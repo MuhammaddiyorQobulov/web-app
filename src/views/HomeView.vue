@@ -4,15 +4,15 @@ import CFooter from "@/layouts/CFooter.vue";
 import { onMounted } from "vue";
 import useAuthStore from "@/store/auth";
 const authStore = useAuthStore();
-onMounted(() => {
-  authStore.CurrentUser();
+onMounted(async () => {
+  await authStore.CurrentUser();
 });
 </script>
 <template>
   <div class="home">
     <header-component class="container" />
     <router-view />
-    <c-footer  class="footer"/>
+    <c-footer class="footer" />
   </div>
 </template>
 <style scoped lang="scss">
@@ -20,7 +20,7 @@ onMounted(() => {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  .footer{
+  .footer {
     margin-top: auto;
   }
 }

@@ -38,6 +38,21 @@ const useOrderStore = defineStore("OrderStore", {
         this.isFetching = false;
       }
     },
+
+    async deliverOrder(id) {
+      this.isFetching = true;
+      try {
+        await api.put(`/orders/${id}`, {
+          status: "IN_PROCESS",
+        });
+        this.getUserOrders();
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.isFetching = false;
+      }
+    },
+
     filter(status) {
       if (!status) return this.orders;
       return this.orders.filter((o) => o.status === status);
@@ -49,10 +64,10 @@ const useOrderStore = defineStore("OrderStore", {
       );
     },
 
-    async getAllOrders() {
+    async getAllOrders(data) {
       this.isFetching = true;
       try {
-        const res = await api.get("/orders");
+        const res = await api.get("/orders", data);
         this.orders = res.data;
         this.error = null;
       } catch (err) {

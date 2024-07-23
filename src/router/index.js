@@ -12,6 +12,9 @@ import AdminProducts from "@/views/AdminView/AdminProducts.vue";
 import DeliveredProducts from "@/views/AdminView/DeliveredProducts.vue";
 import AdminUsers from "@/views/AdminView/AdminUsers.vue";
 import AdminStatistics from "@/views/AdminView/AdminStatistics.vue";
+import DeliverPanel from "@/views/DeliverView/DeliverPanel.vue";
+import NewOrders from "@/views/DeliverView/NewOrders.vue";
+import DeliveredOrders from "@/views/DeliverView/DeliveredOrders.vue";
 const routes = [
   {
     path: "/login",
@@ -53,6 +56,24 @@ const routes = [
         path: "users",
         name: "admin-users",
         component: AdminUsers,
+      },
+    ],
+  },
+  {
+    path: "/deliver",
+    name: "deliver",
+    meta: { requiresAuth: true },
+    component: DeliverPanel,
+    children: [
+      {
+        path: "new-orders",
+        name: "new-orders",
+        component: NewOrders,
+      },
+      {
+        path: "delivered-orders",
+        name: "delivered-orders",
+        component: DeliveredOrders,
       },
     ],
   },

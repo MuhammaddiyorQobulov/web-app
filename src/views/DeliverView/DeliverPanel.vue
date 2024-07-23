@@ -4,18 +4,14 @@ import useAuthStore from "@/store/auth";
 import { onBeforeMount } from "vue";
 import { OrdersIcon } from "@/assets/icons/orders";
 import { TickIcon } from "@/assets/icons/tick";
-import { StatisticsIcon } from "@/assets/icons/statistics";
-import { ProductIcon } from "@/assets/icons/product";
-import { UsersIcon } from "@/assets/icons/users";
 import { useRoute, useRouter } from "vue-router";
 import UserOverlay from "@/components/UserOverlay.vue";
-
 const router = useRouter();
 const authStore = useAuthStore();
 const route = useRoute();
 onBeforeMount(async () => {
   await authStore.CurrentUser();
-  if (!authStore.isAdmin) {
+  if (!authStore.user.roles.includes("DELIVER" || "ADMIN")) {
     router.push("/");
   }
 });
@@ -30,17 +26,8 @@ onBeforeMount(async () => {
         <div class="menus">
           <router-link
             class="link"
-            to="/admin/products"
-            :class="route.path === '/admin/products' && 'active'"
-          >
-            <product-icon class="icon" />
-            <h3 class="menu-title">Mahsulotlar</h3>
-            <p class="muted">Mahsulotlar ustidan boshqarish</p>
-          </router-link>
-          <router-link
-            class="link"
-            to="/admin/orders"
-            :class="route.path === '/admin/orders' && 'active'"
+            to="/deliver/new-orders"
+            :class="route.path === '/deliver/new-orders' && 'active'"
           >
             <orders-icon class="icon" />
             <h3 class="menu-title">Buyurtmalar</h3>
@@ -48,30 +35,12 @@ onBeforeMount(async () => {
           </router-link>
           <router-link
             class="link"
-            to="/admin/delivered"
-            :class="route.path === '/admin/delivered' && 'active'"
+            to="/deliver/delivered-orders"
+            :class="route.path === '/deliver/delivered-orders' && 'active'"
           >
             <tick-icon class="icon" />
             <h3 class="menu-title">Yetkazilgan</h3>
             <p class="muted">Yetkazib berilgan buyurtmalar</p>
-          </router-link>
-          <router-link
-            class="link"
-            to="/admin/statistics"
-            :class="route.path === '/admin/statistics' && 'active'"
-          >
-            <statistics-icon class="icon" />
-            <h3 class="menu-title">Statistika</h3>
-            <p class="muted">Umimuy statistik malumotlar</p>
-          </router-link>
-          <router-link
-            class="link"
-            to="/admin/users"
-            :class="route.path === '/admin/users' && 'active'"
-          >
-            <users-icon class="icon" />
-            <h3 class="menu-title">Foydalanuvchilar</h3>
-            <p class="muted">Foydalanuvchilarni boshqarish</p>
           </router-link>
         </div>
       </div>
@@ -79,6 +48,7 @@ onBeforeMount(async () => {
         <div class="header">
           <user-overlay />
         </div>
+
         <div class="body">
           <router-view />
         </div>
@@ -140,13 +110,13 @@ onBeforeMount(async () => {
     width: 80%;
     height: 100%;
     .header {
-  padding: 0 2rem;
-  display: flex;
-  justify-content: end;
-  // box-shadow: 6px 1.5px 4px 4px $shadow-light;
-  height: 70px;
-  box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
-}
+      padding: 0 2rem;
+      display: flex;
+      justify-content: end;
+      // box-shadow: 6px 1.5px 4px 4px $shadow-light;
+      height: 70px;
+      box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
+    }
     .body {
       height: calc(100% - 70px - 4rem);
       overflow-y: scroll;

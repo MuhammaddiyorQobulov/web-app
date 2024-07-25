@@ -16,6 +16,7 @@ import DeliverPanel from "@/views/DeliverView/DeliverPanel.vue";
 import NewOrders from "@/views/DeliverView/NewOrders.vue";
 import DeliveredOrders from "@/views/DeliverView/DeliveredOrders.vue";
 import MyOrders from "@/views/DeliverView/MyOrders.vue";
+import ProfileView from "@/views/ProfileView.vue";
 const routes = [
   {
     path: "/login",
@@ -93,6 +94,11 @@ const routes = [
         path: "/",
         name: "products",
         component: ProductsView,
+      },
+      {
+        path: "/profile",
+        name: "profile",
+        component: ProfileView,
       },
       {
         path: "/carts",

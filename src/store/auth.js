@@ -7,6 +7,10 @@ const useAuthStore = defineStore("AuthStore", {
       username: null,
       avatar: null,
       roles: [],
+      phone: null,
+      password: null,
+      confirm: null,
+      oldPassword: null,
       id: null,
     },
     users: [],
@@ -33,6 +37,29 @@ const useAuthStore = defineStore("AuthStore", {
         this.error = err.message;
       }
     },
+    async EditProfile(data) {
+      try {
+        this.isFetching = true;
+        const res = await api.put(
+          "/auth/profile",
+          { ...this.user, ...data },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.token = res.data.token;
+        this.error = null;
+        message.success("Malumotlar o'zgartirildi");
+        return res.data.token;
+      } catch (err) {
+        console.log(err.message);
+        this.error = err.message;
+      } finally {
+        this.isFetching = false;
+      }
+    },
     async LoginUser(data) {
       try {
         const res = await api.post("/auth/login", data);
@@ -53,6 +80,7 @@ const useAuthStore = defineStore("AuthStore", {
           username: data.username,
           avatar: data.avatar,
           roles: data.roles,
+          phone: data.phone,
           _id: data._id,
         };
         this.ToggleAdmin(data.roles);
@@ -134,6 +162,19 @@ const useAuthStore = defineStore("AuthStore", {
       if (roles.includes("ADMIN")) {
         this.isAdmin = true;
       }
+    },
+    defaultUser() {
+      this.user = {
+        username: null,
+        avatar: null,
+        roles: [],
+        phone: null,
+        password: null,
+        confirm: null,
+        oldPassword: null,
+        id: null,
+      };
+      this.CurrentUser();
     },
   },
 });

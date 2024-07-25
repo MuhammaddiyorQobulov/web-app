@@ -27,7 +27,7 @@ const router = useRouter();
     </a>
     <template #overlay>
       <a-menu>
-        <router-link v-if="route.path != '/#'" to="/#">
+        <router-link v-if="route.path != '/profile'" to="/profile">
           <a-menu-item key="1">Profile</a-menu-item>
         </router-link>
 

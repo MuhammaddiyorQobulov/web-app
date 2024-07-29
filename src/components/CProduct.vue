@@ -2,7 +2,7 @@
 import useCartsStore from "@/store/carts";
 import { defineProps, ref } from "vue";
 import baseUrl from "@/utils/api/url";
-import ModalComponent from "./ModalComponent.vue";
+// import ModalComponent from "./ModalComponent.vue";
 const cartsStore = useCartsStore();
 const visible = ref(false);
 
@@ -45,7 +45,7 @@ const props = defineProps({
     <p class="description muted">{{ props.product.description }}</p>
   </div>
 
-  <modal-component v-if="visible" @closeModal="visible = false">
+  <!-- <modal-component v-if="visible" @closeModal="visible = false">
     <div class="modal">
       <div class="modal-image">
         <img :src="baseUrl + props.product.imgUrl" alt="Image" />
@@ -67,7 +67,7 @@ const props = defineProps({
         </div>
       </div>
     </div>
-  </modal-component>
+  </modal-component> -->
 </template>
 
 <style scoped lang="scss">

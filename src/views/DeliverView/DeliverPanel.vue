@@ -6,6 +6,7 @@ import { OrdersIcon } from "@/assets/icons/orders";
 import { TickIcon } from "@/assets/icons/tick";
 import { useRoute, useRouter } from "vue-router";
 import UserOverlay from "@/components/UserOverlay.vue";
+import { ProcessIcon } from "@/assets/icons/process";
 const router = useRouter();
 const authStore = useAuthStore();
 const route = useRoute();
@@ -21,7 +22,9 @@ onBeforeMount(async () => {
     <div class="wrapper">
       <div class="sidebar">
         <div class="logo">
-          <logo-icon />
+          <router-link to="/">
+            <logo-icon />
+          </router-link>
         </div>
         <div class="menus">
           <router-link
@@ -29,7 +32,7 @@ onBeforeMount(async () => {
             to="/deliver/new-orders"
             :class="route.path === '/deliver/new-orders' && 'active'"
           >
-            <orders-icon class="icon" />
+            <process-icon class="icon" />
             <h3 class="menu-title">Yangi buyurtmalar</h3>
             <p class="muted">Kelgan buyurtmalarni kuztish</p>
           </router-link>

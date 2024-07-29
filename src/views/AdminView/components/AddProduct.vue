@@ -90,9 +90,15 @@ const AddSubmit = () => {
           </div>
         </a-col>
       </a-row>
-      <button type="submit">Save</button>
+      <button class="btn warning" type="submit">Save</button>
     </form>
   </div>
 </template>
 
-<style></style>
+<style scoped lang="scss">
+@import "@/styles/variables.scss";
+.btn {
+  margin-top: 1rem;
+  color: $black !important;
+}
+</style>

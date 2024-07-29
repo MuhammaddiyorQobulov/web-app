@@ -52,11 +52,6 @@ const props = defineProps({
           {{ record.title }}
         </a>
       </template>
-      <template v-if="column.key === 'title'">
-        <a>
-          {{ record.title }}
-        </a>
-      </template>
 
       <template v-if="column.key === 'index'">
         <a> {{ record._id.substring(record._id.length - 4) }} </a>

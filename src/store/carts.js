@@ -59,9 +59,8 @@ const useCartsStore = defineStore("CartsStore", {
       this.isFetching = true;
       try {
         const res = await api.get(`/user-cart`);
-        const { products, total } = res.data;
-        this.carts = products;
-        this.total = total;
+        this.carts = res.data.products;
+        this.total = res.data.total;
       } catch (err) {
         console.error(err.message);
       } finally {

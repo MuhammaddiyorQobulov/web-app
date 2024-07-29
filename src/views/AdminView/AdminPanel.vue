@@ -25,7 +25,9 @@ onBeforeMount(async () => {
     <div class="wrapper">
       <div class="sidebar">
         <div class="logo">
-          <logo-icon />
+          <router-link to="/">
+            <logo-icon />
+          </router-link>
         </div>
         <div class="menus">
           <router-link
@@ -140,13 +142,13 @@ onBeforeMount(async () => {
     width: 80%;
     height: 100%;
     .header {
-  padding: 0 2rem;
-  display: flex;
-  justify-content: end;
-  // box-shadow: 6px 1.5px 4px 4px $shadow-light;
-  height: 70px;
-  box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
-}
+      padding: 0 2rem;
+      display: flex;
+      justify-content: end;
+      // box-shadow: 6px 1.5px 4px 4px $shadow-light;
+      height: 70px;
+      box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
+    }
     .body {
       height: calc(100% - 70px - 4rem);
       overflow-y: scroll;

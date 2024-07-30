@@ -78,7 +78,6 @@ const filterByType = (type) => {
   .main-image {
     img {
       width: 100%;
-      height: max-content;
     }
   }
   .filters {

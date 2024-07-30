@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.24.6",
-    "core-js": "^3.8.3",
-    "pinia": "^2.1.7",
-    "scss": "^0.2.4",
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.2",
+    "core-js": "^3.8.3",
     "moment": "^2.30.1",
-    "vue-i18n": "^10.0.0-beta.1",
+    "pinia": "^2.1.7",
+    "scss": "^0.2.4",
     "vue": "^3.2.13",
+    "vue-i18n": "^10.0.0-beta.1",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
@@ -29,6 +29,6 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "node-sass": "^9.0.0",
-    "sass-loader": "^18.12.1"
+    "sass-loader": "^16.0.0"
   }
 }

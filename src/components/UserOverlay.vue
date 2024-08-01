@@ -39,12 +39,18 @@ const router = useRouter();
           <a-menu-item key="3">Korzinka</a-menu-item>
         </router-link>
 
-        <router-link v-if="authStore.isAdmin" to="/admin/products">
+        <router-link
+          v-if="authStore.isAdmin && !route.path.includes('/admin')"
+          to="/admin/products"
+        >
           <a-menu-item key="5">Admin Paneli</a-menu-item>
         </router-link>
 
         <router-link
-          v-if="authStore.isAdmin || !authStore.user.roles.indexOf('DELIVER')"
+          v-if="
+            (authStore.isAdmin || !authStore.user.roles.indexOf('DELIVER')) &&
+            !route.path.includes('/deliver')
+          "
           to="/deliver/new-orders"
         >
           <a-menu-item key="6">Kuryer Paneli</a-menu-item>
@@ -67,6 +73,8 @@ const router = useRouter();
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive.scss";
+
 .user {
   padding: 1rem 0;
   display: flex;
@@ -87,6 +95,35 @@ const router = useRouter();
       width: 100%;
       height: 100%;
     }
+  }
+}
+
+@include screen("sm") {
+  .user {
+    .avatar {
+      height: 25px;
+      width: 25px;
+    }
+    .name {
+      display: none;
+    }
+  }
+  .anticon {
+    display: none;
+  }
+}
+@include screen("md") {
+  .user {
+    .avatar {
+      height: 25px;
+      width: 25px;
+    }
+    .name {
+      display: none;
+    }
+  }
+  .anticon {
+    display: none;
   }
 }
 </style>

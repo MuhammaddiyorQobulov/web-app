@@ -2,9 +2,14 @@
 import useCartsStore from "@/store/carts";
 import { defineProps, ref } from "vue";
 import baseUrl from "@/utils/api/url";
-// import ModalComponent from "./ModalComponent.vue";
+import ModalComponent from "./ModalComponent.vue";
 const cartsStore = useCartsStore();
 const visible = ref(false);
+
+const addCart = async () => {
+  await cartsStore.addCart(props.product._id, 1);
+  if (!cartsStore.error) visible.value = false;
+};
 
 const props = defineProps({
   product: {
@@ -31,21 +36,21 @@ const props = defineProps({
   <div class="product" @click="visible = true">
     <div class="image">
       <img :src="baseUrl + props.product.imgUrl" alt="Image" />
-      <div class="overlay">
+      <!-- <div class="overlay">
         <button
           @click="cartsStore.addCart(props.product._id, 1)"
           class="btn-overlay"
         >
           Add to cart
         </button>
-      </div>
+      </div> -->
     </div>
     <h2 class="title bold-4">{{ props.product.title }}</h2>
     <p class="price">{{ props.product.price }} so'm</p>
     <p class="description muted">{{ props.product.description }}</p>
   </div>
 
-  <!-- <modal-component v-if="visible" @closeModal="visible = false">
+  <modal-component v-if="visible" @closeModal="visible = false">
     <div class="modal">
       <div class="modal-image">
         <img :src="baseUrl + props.product.imgUrl" alt="Image" />
@@ -58,21 +63,16 @@ const props = defineProps({
           Mahsulot narxiga birmarttalik idish narxi qo'shiladi! (1500)
         </p>
         <div class="modal-btn">
-          <button
-            @click="cartsStore.addCart(props.product._id, 1)"
-            class="btn warning"
-          >
-            Add to cart
-          </button>
+          <button @click="addCart" class="btn warning">Add to cart</button>
         </div>
       </div>
     </div>
-  </modal-component> -->
+  </modal-component>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
-
+@import "@/styles/responsive.scss";
 .product {
   text-align: center;
   padding-bottom: 2rem;
@@ -80,6 +80,7 @@ const props = defineProps({
   box-shadow: $shadow-light 0px 0px 8px 0px;
   width: 320px;
   text-align: center;
+  cursor: pointer;
   .image {
     position: relative;
     width: 320px;
@@ -140,7 +141,7 @@ const props = defineProps({
 .modal {
   &-image {
     position: relative;
-    width: 400px;
+    width: 100%;
     height: 200px;
     overflow: hidden;
     padding: 0 !important;
@@ -189,6 +190,15 @@ const props = defineProps({
       color: $black !important;
       font-size: 20px;
       margin-left: auto;
+    }
+  }
+}
+
+@include screen("sm") {
+  .modal {
+    &-image {
+      width: 100%;
+      height: 200px;
     }
   }
 }

@@ -126,6 +126,7 @@ const CloseModal = (value) => {
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive";
 .profile {
   padding: 4rem 0;
   display: flex;
@@ -188,6 +189,26 @@ const CloseModal = (value) => {
     height: max-content;
     margin-left: auto;
     color: $black !important;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    .avatar {
+      width: 150px;
+      height: 150px;
+    }
+    .user-infos {
+      h2 {
+        font-size: 16px;
+      }
+      h1 {
+        font-size: 18px;
+      }
+    }
   }
 }
 </style>

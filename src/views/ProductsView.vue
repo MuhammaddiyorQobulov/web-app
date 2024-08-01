@@ -73,6 +73,8 @@ const filterByType = (type) => {
   <carts-modal v-if="cartsStore.carts && cartsStore.carts.length" />
 </template>
 <style scoped lang="scss">
+@import "@/styles/variables";
+@import "@/styles/responsive";
 .home {
   width: 100%;
   .main-image {
@@ -98,6 +100,28 @@ const filterByType = (type) => {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
+    }
+  }
+}
+
+@include screen("sm") {
+  .home {
+    .filters {
+      gap: 0;
+      padding: 0.5rem;
+    }
+    .products {
+      justify-content: center;
+    }
+  }
+}
+@include screen("md") {
+  .home {
+    .filters {
+      padding: 0.5rem;
+    }
+    .products {
+      justify-content: center;
     }
   }
 }

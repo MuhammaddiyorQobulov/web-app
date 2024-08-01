@@ -5,7 +5,7 @@ import UserOverlay from "@/components/UserOverlay.vue";
 <template>
   <div class="navbar">
     <router-link to="/">
-      <LogoIcon />
+      <logo-icon />
     </router-link>
 
     <user-overlay />
@@ -14,6 +14,7 @@ import UserOverlay from "@/components/UserOverlay.vue";
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive.scss";
 .navbar {
   display: flex;
   align-items: center;
@@ -26,5 +27,22 @@ import UserOverlay from "@/components/UserOverlay.vue";
   background: $white;
   box-shadow: 0 -1px 0.5px 0.5px inset $shadow-light;
   z-index: 10;
+}
+
+@include screen("sm") {
+  .navbar {
+    height: 20px;
+    svg {
+      height: 30px;
+    }
+  }
+}
+@include screen("md") {
+  .navbar {
+    height: 20px;
+    svg {
+      height: 30px;
+    }
+  }
 }
 </style>

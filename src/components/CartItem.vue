@@ -15,7 +15,7 @@ const props = defineProps({
 const item = cartsStore.getOneCart(props.productId);
 </script>
 <template>
-  <a-row v-if="item" :gutter="[16, 16]" class="item">
+  <a-row v-if="item" :gutter="[16, 16]" class="item flex">
     <div class="close-icon" @click="cartsStore.removeCart(item._id)">
       <close-icon />
     </div>
@@ -23,9 +23,8 @@ const item = cartsStore.getOneCart(props.productId);
       <img :src="baseUrl + item.imgUrl" alt="image" />
     </div>
     <a-col
-      :xs="6"
-      :sm="6"
-      :md="6"
+      :xs="24"
+      :sm="12"
       :lg="8"
       :xl="10"
       :xxl="6"
@@ -56,7 +55,7 @@ const item = cartsStore.getOneCart(props.productId);
         <plus-icon />
       </button>
     </a-col>
-    <a-col span="24">
+    <a-col span="24" class="description">
       {{ item.description }}
     </a-col>
   </a-row>
@@ -98,8 +97,7 @@ const item = cartsStore.getOneCart(props.productId);
   }
   .content {
     flex-direction: column;
-    gap: 1rem;
-    align-items: start;
+    gap: 0.5rem;
     .amount {
       background: $btn-danger;
       color: $white;
@@ -124,6 +122,9 @@ const item = cartsStore.getOneCart(props.productId);
         cursor: not-allowed;
       }
     }
+  }
+  .description {
+    text-align: center;
   }
 }
 </style>

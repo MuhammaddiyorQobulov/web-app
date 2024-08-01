@@ -19,6 +19,7 @@ const emits = defineEmits(["closeModal"]);
 </template>
 
 <style scoped lang="scss">
+@import "@/styles/responsive";
 @import "@/styles/variables";
 .filter-modal {
   position: fixed;
@@ -54,6 +55,14 @@ const emits = defineEmits(["closeModal"]);
     top: 2%;
     right: 2.5%;
     width: 25px;
+  }
+}
+
+@include screen("sm") {
+  .filter-modal {
+    .modal {
+      transform: scale(0.7);
+    }
   }
 }
 </style>

@@ -53,6 +53,7 @@ const handleLogin = async () => {
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive";
 .wrapper {
   background: url("@/assets/images/main-bg.png") no-repeat center;
   background-size: cover;
@@ -93,6 +94,21 @@ const handleLogin = async () => {
           background: $primary;
         }
       }
+    }
+  }
+}
+
+@include screen("sm") {
+  .wrapper {
+    .login {
+      transform: scale(0.7);
+    }
+  }
+}
+@include screen("md") {
+  .wrapper {
+    .login {
+      transform: scale(0.8);
     }
   }
 }

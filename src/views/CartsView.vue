@@ -103,6 +103,7 @@ const order = async () => {
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive.scss";
 .carts {
   display: flex;
   width: 90%;
@@ -116,7 +117,6 @@ const order = async () => {
       gap: 1rem;
       margin-top: 1rem;
     }
-
     .input-group {
       margin-top: 1rem;
       flex-direction: column;
@@ -142,6 +142,7 @@ const order = async () => {
       gap: 2rem;
       &-cost {
         font-size: 40px;
+        color: $grey;
       }
       &-title {
         font-size: 25px;
@@ -168,6 +169,54 @@ const order = async () => {
       cursor: pointer;
       &:active {
         background: $btn-info !important;
+      }
+    }
+  }
+}
+@include screen("sm") {
+  .carts {
+    .wrapper {
+      .total {
+        flex-direction: column;
+        margin-top: 1rem;
+        gap: 0;
+        &-cost {
+          font-size: 25px;
+          white-space: nowrap;
+        }
+        &-title {
+          white-space: nowrap;
+          font-size: 15px;
+        }
+      }
+      .btn {
+        padding: 0.4rem;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+@include screen("md") {
+  .carts {
+    .wrapper {
+      .total {
+        flex-direction: column;
+        margin-top: 1rem;
+        gap: 0;
+        &-cost {
+          font-size: 25px;
+          white-space: nowrap;
+        }
+        &-title {
+          white-space: nowrap;
+          font-size: 15px;
+        }
+      }
+      .btn {
+        padding: 0.4rem;
+        font-size: 14px;
+        white-space: nowrap;
       }
     }
   }

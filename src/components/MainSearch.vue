@@ -31,11 +31,12 @@ const model = ref("");
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
-
+@import "@/styles/responsive";
 form {
   width: 400px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   border-radius: 7px;
   padding: 10px;
@@ -55,6 +56,19 @@ form {
     &:active {
       transform: scale(0.9);
     }
+  }
+}
+
+@include screen("sm") {
+  form {
+    transform: scale(0.8);
+    padding: 5px;
+  }
+}
+@include screen("md") {
+  form {
+    transform: scale(0.8);
+    padding: 5px;
   }
 }
 </style>

@@ -66,6 +66,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "@/styles/variables";
+@import "@/styles/responsive";
 .wrapper {
   width: 100%;
 }
@@ -101,6 +102,7 @@ onMounted(() => {
     gap: 1rem;
     &-title {
       font-size: 20px;
+      white-space: nowrap;
     }
     &-cost {
       font-size: 30px;
@@ -108,6 +110,8 @@ onMounted(() => {
   }
   .infos {
     justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 1rem;
   }
   .status {
     padding: 0.2rem 0.5rem;
@@ -136,8 +140,26 @@ onMounted(() => {
     max-width: 100%;
     gap: 1rem;
     overflow: scroll;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     margin: 1rem 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .orders {
+    .filter-status {
+      margin: 0.5rem 0;
+    }
+    .infos {
+      .total {
+        &-title {
+          font-size: 16px;
+        }
+        &-cost {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
 </style>

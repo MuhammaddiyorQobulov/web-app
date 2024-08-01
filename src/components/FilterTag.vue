@@ -23,6 +23,7 @@ const emits = defineEmits(["onClick"]);
 </template>
 
 <style scoped lang="scss">
+@import "@/styles/responsive";
 @import "@/styles/variables";
 .filter-tag {
   background: $shadow-light;
@@ -35,5 +36,11 @@ const emits = defineEmits(["onClick"]);
 .active {
   background: $grey;
   color: $white;
+}
+
+@include screen("sm") {
+  .filter-tag {
+    transform: scale(0.7);
+  }
 }
 </style>

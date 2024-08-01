@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps} from "vue";
+import { defineProps } from "vue";
 import moment from "moment";
 import baseUrl from "@/utils/api/url";
 
@@ -30,12 +30,12 @@ const props = defineProps({
 <template>
   <div class="order-box">
     <div class="infos">
-      <div class="img">
+      <div class="img flex">
         <img :src="baseUrl + props.product.imgUrl" alt="" />
-        <p class="bold-4">{{ props.product.title }}</p>
       </div>
       <div class="description">
-        <p>{{ props.product.description }}</p>
+        <p class="name bold-5">{{ props.product.title }}</p>
+        <p class="text-mute">{{ props.product.description }}</p>
       </div>
       <div class="info">
         <div class="order-info">
@@ -61,33 +61,42 @@ const props = defineProps({
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
+@import "@/styles/responsive";
 .order-box {
   border: 1px solid $shadow-light;
   border-radius: 8px;
   padding: 1rem;
+  margin-top: 10px;
   .infos {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    height: 100px;
     .img {
       text-align: center;
-      overflow: hidden;
+      height: 100px;
       width: 100px;
-      height: 110px;
+      overflow: hidden;
       img {
         width: 100%;
-        height: 80px;
       }
     }
     .description {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      .name {
+        font-size: 18px;
+        font-weight: 600;
+      }
       p {
         width: 200px;
-        height: 100%;
         overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
       }
     }
     .info {
+      overflow: hidden;
       .order-info {
         display: flex;
         align-items: center;
@@ -99,6 +108,16 @@ const props = defineProps({
           display: flex;
           white-space: nowrap;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .order-box {
+    .infos {
+      .img {
+        width: 100%;
       }
     }
   }

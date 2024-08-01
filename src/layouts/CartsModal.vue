@@ -22,6 +22,7 @@ const cartsStore = useCartsStore();
 
 <style scoped lang="scss">
 @import "@/styles/variables";
+@import "@/styles/responsive";
 .carts-modal {
   position: fixed;
   width: 400px;
@@ -51,6 +52,13 @@ const cartsStore = useCartsStore();
     padding: 1rem;
     list-style: none;
     text-decoration: none;
+  }
+}
+
+@include screen("sm") {
+  .carts-modal {
+    transform: scale(0.7);
+    bottom: 10px;
   }
 }
 </style>
